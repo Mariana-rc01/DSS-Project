@@ -6,14 +6,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-public class StudentDAO {
-    private static StudentDAO singleton = null;
+public class CourseDirectorDAO {
+    private static CourseDirectorDAO singleton = null;
 
-    public StudentDAO() {
-        String sql = "CREATE TABLE IF NOT EXISTS students (\n"
+    public CourseDirectorDAO() {
+        String sql = "CREATE TABLE IF NOT EXISTS directors (\n"
                 + " id integer PRIMARY KEY,\n"
-                + " password text NOT NULL,\n"
-                + " idCourse integer\n"
+                + " password text NOT NULL\n"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(DAOConfig.URL, DAOConfig.USERNAME, DAOConfig.PASSWORD);
@@ -25,9 +24,9 @@ public class StudentDAO {
         }
     }
 
-    public static StudentDAO getInstance(){
+    public static CourseDirectorDAO getInstance(){
         if (singleton == null) {
-            singleton = new StudentDAO();
+            singleton = new CourseDirectorDAO();
         }
         return singleton;
     }
@@ -37,7 +36,7 @@ public class StudentDAO {
         int i = 0;
         try (Connection conn = DriverManager.getConnection(DAOConfig.URL, DAOConfig.USERNAME, DAOConfig.PASSWORD);
              Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT count(*) FROM students")) {
+             ResultSet rs = stm.executeQuery("SELECT count(*) FROM directors")) {
             if(rs.next()) {
                 i = rs.getInt(1);
             }

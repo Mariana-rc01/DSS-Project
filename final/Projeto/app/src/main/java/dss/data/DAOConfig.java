@@ -1,6 +1,6 @@
 package dss.data;
 
-public class DAOconfig {
+public class DAOConfig {
     static final String USERNAME = "me";
     static final String PASSWORD = "mypass";                    
     private static final String DATABASE = "dss";
