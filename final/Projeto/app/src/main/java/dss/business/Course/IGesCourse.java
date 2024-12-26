@@ -1,6 +1,6 @@
 package dss.business.Course;
 
-public interface IGesUser {
+public interface IGesCourse {
     
     public boolean registerPolicyOption(String idCourse, String idUC, String policyPreference);
 
