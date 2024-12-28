@@ -1,13 +1,14 @@
 package dss.business.Course;
 
-import java.util.List;
 import java.util.Map;
+
 import dss.data.CourseDAO;
 import dss.data.UCDAO;
 
-public class GesCourseFacade {
-    private final CourseDAO courses;
-    private final UCDAO ucs;
+public class GesCourseFacade implements IGesCourse {
+
+    private Map<Integer, Course> courses;
+    private Map<Integer, UC> ucs;
 
     public GesCourseFacade() {
         this.courses = CourseDAO.getInstance();

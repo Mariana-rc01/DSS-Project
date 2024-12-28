@@ -2,11 +2,16 @@ package dss.data;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.ResultSet;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
-public class UCDAO {
+import dss.business.Course.UC;
+
+public class UCDAO implements Map<Integer, UC> {
     private static UCDAO singleton = null;
 
     public UCDAO() {
@@ -53,5 +58,65 @@ public class UCDAO {
 
     public boolean isEmpty() {
         return this.size() == 0;
+    }
+
+    @Override
+    public void clear() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'clear'");
+    }
+
+    @Override
+    public boolean containsKey(Object key) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'containsKey'");
+    }
+
+    @Override
+    public boolean containsValue(Object value) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'containsValue'");
+    }
+
+    @Override
+    public Set<Entry<Integer, UC>> entrySet() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'entrySet'");
+    }
+
+    @Override
+    public UC get(Object key) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'get'");
+    }
+
+    @Override
+    public Set<Integer> keySet() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'keySet'");
+    }
+
+    @Override
+    public UC put(Integer arg0, UC arg1) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'put'");
+    }
+
+    @Override
+    public void putAll(Map<? extends Integer, ? extends UC> m) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'putAll'");
+    }
+
+    @Override
+    public UC remove(Object key) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+    }
+
+    @Override
+    public Collection<UC> values() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'values'");
     }
 }

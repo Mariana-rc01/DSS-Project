@@ -2,14 +2,18 @@ package dss.business.Schedule;
 
 import java.util.List;
 import java.util.Map;
-import dss.data.StudentDAO;
 
-public class ScheduleFacade {
-    //private Map<String, Course> courses;
-    //private Map<String, Student> students;
+import dss.business.Course.Course;
+import dss.business.User.Student;
+import dss.data.CourseDAO;
+
+public class ScheduleFacade implements ISchedule {
+
+    private Map<Integer, Course> courses;
+    private Map<String, Student> students;
 
     public ScheduleFacade() {
-        //this.courses = CourseDAO.getInstance();
+        this.courses = CourseDAO.getInstance();
         //this.students = StudentDAO.getInstance();
     }
 
