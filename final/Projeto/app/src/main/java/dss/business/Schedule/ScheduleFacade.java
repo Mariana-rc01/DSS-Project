@@ -3,20 +3,22 @@ package dss.business.Schedule;
 import java.util.List;
 import java.util.Map;
 
-import dss.business.Course.Course;
+import dss.business.Course.*;
 import dss.business.User.Student;
 import dss.data.CourseDAO;
+import dss.data.StudentDAO;
 
 public class ScheduleFacade implements ISchedule {
 
-    private Map<Integer, Course> courses;
-    private Map<String, Student> students;
+    private CourseDAO courses;
+    private StudentDAO students;
 
     public ScheduleFacade() {
-        this.courses = CourseDAO.getInstance();
-        //this.students = StudentDAO.getInstance();
+        this.courses = new CourseDAO();
+        this.students = new StudentDAO();
     }
 
+    // Mariana
     public List<Integer> getStudentsWithScheduleConflicts(String idCourse) {
         return null;
     }
@@ -25,13 +27,14 @@ public class ScheduleFacade implements ISchedule {
         return false;
     }
 
+    // Mariana
     public void generateSchedule (int idCourse) {
         
     }
 
-    /*public List<Student> getStudentsWithoutSchedule (String idCourse) {
+    public List<Student> getStudentsWithoutSchedule (String idCourse) {
         return null;
-    }*/
+    }
 
     public boolean importTimeTable (String idCourse, String year, String path) {
         return false;
@@ -41,14 +44,17 @@ public class ScheduleFacade implements ISchedule {
         return false;
     }
 
+    // Mariana
     public boolean sendEmails (String idCourse) {
+        
         return false;
     }
 
-    /*public Map<UC, Map<Shift,List<TimeSlots>>> getStudentSchedule (int idStudent, String idCourse) {
+    public Map<UC, Map<Shift,List<TimeSlot>>> getStudentSchedule (int idStudent, String idCourse) {
         return null;
-    }*/
+    }
 
+    // Mariana
     public boolean registerSchedule (String idCourse, int idStudent, Map<Integer, List<Integer>> schedule) {
         return false;
     }

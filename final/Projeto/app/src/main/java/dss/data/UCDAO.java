@@ -1,122 +1,77 @@
 package dss.data;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.sql.*;
 
 import dss.business.Course.UC;
 
-public class UCDAO implements Map<Integer, UC> {
-    private static UCDAO singleton = null;
+public class UCDAO {
 
-    public UCDAO() {
-        String sql = "CREATE TABLE IF NOT EXISTS ucs (\n"
-                + " id integer PRIMARY KEY,\n"
-                + " name text NOT NULL,\n"
-                + " year integer NOT NULL\n"
-                + " semester integer NOT NULL\n"
-                + " policyPreference text\n"
-                + ");";
-
-        try (Connection conn = DriverManager.getConnection(DAOConfig.URL, DAOConfig.USERNAME, DAOConfig.PASSWORD);
-             Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-            System.out.println("Table created successfully");
+    public boolean addUC(int id, String name, int year, int semester, String policyPreference) throws Exception {
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement(
+                "INSERT INTO ucs (id, name, year, semester, policyPreference) VALUES (?, ?, ?, ?, ?)")) {
+            stm.setInt(1, id);
+            stm.setString(2, name);
+            stm.setInt(3, year);
+            stm.setInt(4, semester);
+            stm.setString(5, policyPreference);
+            stm.executeUpdate();
+            return true;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new Exception("Erro ao adicionar Unidade Curricular: " + e.getMessage());
         }
     }
 
-    public static UCDAO getInstance(){
-        if (singleton == null) {
-            singleton = new UCDAO();
-        }
-        return singleton;
-    }
-
-
-    public int size() {
-        int i = 0;
-        try (Connection conn = DriverManager.getConnection(DAOConfig.URL, DAOConfig.USERNAME, DAOConfig.PASSWORD);
-             Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT count(*) FROM ucs")) {
-            if(rs.next()) {
-                i = rs.getInt(1);
+    public UC getUC(int id) throws Exception {
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement("SELECT * FROM ucs WHERE id = ?")) {
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return new UC(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getInt("year"),
+                        rs.getInt("semester"),
+                        rs.getString("policyPreference")
+                );
             }
+            return null;
+        } catch (SQLException e) {
+            throw new Exception("Erro ao obter Unidade Curricular: " + e.getMessage());
         }
-        catch (Exception e) {
-            e.printStackTrace();
-            throw new NullPointerException(e.getMessage());
+    }
+
+    public boolean updateUC(int id, String name, int year, int semester, String policyPreference) throws Exception {
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement(
+                "UPDATE ucs SET name = ?, year = ?, semester = ?, policyPreference = ? WHERE id = ?")) {
+            stm.setString(1, name);
+            stm.setInt(2, year);
+            stm.setInt(3, semester);
+            stm.setString(4, policyPreference);
+            stm.setInt(5, id);
+            int rowsUpdated = stm.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            throw new Exception("Erro ao atualizar Unidade Curricular: " + e.getMessage());
         }
-        return i;
     }
 
-    public boolean isEmpty() {
-        return this.size() == 0;
+    public boolean exists(int id) throws Exception {
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement("SELECT 1 FROM ucs WHERE id = ?")) {
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            throw new Exception("Erro ao verificar a existência da Unidade Curricular: " + e.getMessage());
+        }
     }
 
-    @Override
-    public void clear() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'clear'");
-    }
-
-    @Override
-    public boolean containsKey(Object key) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'containsKey'");
-    }
-
-    @Override
-    public boolean containsValue(Object value) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'containsValue'");
-    }
-
-    @Override
-    public Set<Entry<Integer, UC>> entrySet() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'entrySet'");
-    }
-
-    @Override
-    public UC get(Object key) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
-    }
-
-    @Override
-    public Set<Integer> keySet() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'keySet'");
-    }
-
-    @Override
-    public UC put(Integer arg0, UC arg1) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'put'");
-    }
-
-    @Override
-    public void putAll(Map<? extends Integer, ? extends UC> m) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'putAll'");
-    }
-
-    @Override
-    public UC remove(Object key) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
-    }
-
-    @Override
-    public Collection<UC> values() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'values'");
+    public boolean removeUC(int id) throws Exception {
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement("DELETE FROM ucs WHERE id = ?")) {
+            stm.setInt(1, id);
+            int rowsDeleted = stm.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (SQLException e) {
+            throw new Exception("Erro ao remover Unidade Curricular: " + e.getMessage());
+        }
     }
 }

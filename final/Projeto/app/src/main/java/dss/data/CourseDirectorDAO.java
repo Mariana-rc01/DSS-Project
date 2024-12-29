@@ -1,54 +1,70 @@
 package dss.data;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
+import java.sql.*;
+
+import dss.business.User.CourseDirector;
 
 public class CourseDirectorDAO {
-    private static CourseDirectorDAO singleton = null;
 
-    public CourseDirectorDAO() {
-        String sql = "CREATE TABLE IF NOT EXISTS directors (\n"
-                + " id integer PRIMARY KEY,\n"
-                + " password text NOT NULL\n"
-                + ");";
-
-        try (Connection conn = DriverManager.getConnection(DAOConfig.URL, DAOConfig.USERNAME, DAOConfig.PASSWORD);
-             Statement stmt = conn.createStatement()) {
-            stmt.execute(sql);
-            System.out.println("Table created successfully");
+    public boolean addCourseDirector(int id, String password, int courseId) throws Exception {
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement(
+                "INSERT INTO course_director (id, password, course_id) VALUES (?, ?, ?)")) {
+            stm.setInt(1, id);
+            stm.setString(2, password);
+            stm.setInt(3, courseId);
+            stm.executeUpdate();
+            return true;
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new Exception("Erro ao adicionar diretor de curso: " + e.getMessage());
         }
     }
 
-    public static CourseDirectorDAO getInstance(){
-        if (singleton == null) {
-            singleton = new CourseDirectorDAO();
-        }
-        return singleton;
-    }
-
-
-    public int size() {
-        int i = 0;
-        try (Connection conn = DriverManager.getConnection(DAOConfig.URL, DAOConfig.USERNAME, DAOConfig.PASSWORD);
-             Statement stm = conn.createStatement();
-             ResultSet rs = stm.executeQuery("SELECT count(*) FROM directors")) {
-            if(rs.next()) {
-                i = rs.getInt(1);
+    public CourseDirector getCourseDirector(int id) throws Exception {
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement("SELECT * FROM course_director WHERE id = ?")) {
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return new CourseDirector(
+                        rs.getInt("id"),
+                        rs.getString("password"),
+                        rs.getInt("course_id")
+                );
             }
+            return null;
+        } catch (SQLException e) {
+            throw new Exception("Erro ao obter diretor de curso: " + e.getMessage());
         }
-        catch (Exception e) {
-            e.printStackTrace();
-            throw new NullPointerException(e.getMessage());
-        }
-        return i;
     }
 
-    public boolean isEmpty() {
-        return this.size() == 0;
+    public boolean updatePassword(int id, String newPassword) throws Exception {
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement(
+                "UPDATE course_director SET password = ? WHERE id = ?")) {
+            stm.setString(1, newPassword);
+            stm.setInt(2, id);
+            int rowsUpdated = stm.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            throw new Exception("Erro ao atualizar a password do diretor de curso: " + e.getMessage());
+        }
+    }
+
+    public boolean exists(int id) throws Exception {
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement("SELECT 1 FROM course_director WHERE id = ?")) {
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            throw new Exception("Erro ao verificar a existência do diretor de curso: " + e.getMessage());
+        }
+    }
+
+    public boolean removeCourseDirector(int id) throws Exception {
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement("DELETE FROM course_director WHERE id = ?")) {
+            stm.setInt(1, id);
+            int rowsDeleted = stm.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (SQLException e) {
+            throw new Exception("Erro ao remover diretor de curso: " + e.getMessage());
+        }
     }
 }

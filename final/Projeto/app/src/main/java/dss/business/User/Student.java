@@ -1,31 +1,74 @@
 package dss.business.User;
 
-public class Student {
-    int id;
-    String password;
-    String idCourse;
+import java.util.*;
 
-    public Student(int id, String password, String idCourse){
+import dss.business.Course.Shift;
+import dss.business.Course.TimeSlot;
+import dss.business.Course.UC;
+
+public class Student {
+
+    private int id;
+    private String password;
+    private int course;
+    private Map<Integer, List<Integer>> schedule;
+    private List<Integer> ucs;
+
+    public Student(int id, String password, int idCourse){
         this.id = id;
         this.password = password;
-        this.idCourse = idCourse;
+        this.course = idCourse;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getCourse() {
+        return course;
+    }
+
+    public void addUC(UC uc) {
+        ucs.add(uc.getId());
+    }
+
+    public void removeUC(UC uc) {
+        ucs.remove(uc.getId());
+    }
+
+    public List<Integer> getUCs() {
+        return ucs;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setCourse(int course) {
+        this.course = course;
     }
 
     public boolean verifyPassword(String password) {
-        return this.password == password;
+        return this.password.equals(password);
     }
 
-    /*
+    public int getType() {
+        return 0;
+    }
+
+
     public Map<UC, Map<Shift, List<TimeSlot>>> getSchedule() {
-
+        return null;
     }
-    */
 
-   /*
-   public void addSchedule(Map<Integer, List<Integer>>) {
+
+   public void addSchedule(Map<Integer, List<Integer>> schedule) {
    
    }
-   */
 
     public String getEmail(){
         return "a" + id + "@alunos.uminho.pt";
@@ -39,7 +82,23 @@ public class Student {
 
     }
 
-    public void senEmailAux(String title, String body){
+    public void sendEmailAux(String title, String body){
 
     }
+
+    @Override
+    public Student clone() {
+        try {
+            Student cloned = (Student) super.clone();
+            cloned.schedule = new HashMap<>(this.schedule);
+            for (Map.Entry<Integer, List<Integer>> entry : this.schedule.entrySet()) {
+                cloned.schedule.put(entry.getKey(), new ArrayList<>(entry.getValue()));
+            }
+            cloned.ucs = new ArrayList<>(this.ucs);
+            return cloned;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+
 }
