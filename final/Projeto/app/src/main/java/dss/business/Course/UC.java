@@ -1,5 +1,6 @@
 package dss.business.Course;
 
+import java.util.List;
 
 public class UC {
 
@@ -8,6 +9,7 @@ public class UC {
     private int year;
     private int semester;
     private String policyPreference;
+    private List<Shift> shifts;
 
     // Construtor
     public UC(int id, String name, int year, int semester, String policyPreference) {
@@ -16,6 +18,15 @@ public class UC {
         this.year = year;
         this.semester = semester;
         this.policyPreference = policyPreference;
+    }
+
+    public UC(int id, String name, int year, int semester, String policyPreference, List<Shift> shifts) {
+        this.id = id;
+        this.name = name;
+        this.year = year;
+        this.semester = semester;
+        this.policyPreference = policyPreference;
+        this.shifts = shifts;
     }
 
     // Getters e Setters

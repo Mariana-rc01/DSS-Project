@@ -96,6 +96,31 @@ CREATE TABLE IF NOT EXISTS `dss`.`course_director` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `dss`.`students_ucs`
+-- -----------------------------------------------------
+CREATE TABLE student_ucs (
+    student_id INT NOT NULL,
+    uc_id INT NOT NULL,
+    PRIMARY KEY (student_id, uc_id),
+    FOREIGN KEY (student_id) REFERENCES students(id),
+    FOREIGN KEY (uc_id) REFERENCES ucs(id)
+);
+
+-- -----------------------------------------------------
+-- Table `dss`.`students_schedule`
+-- -----------------------------------------------------
+CREATE TABLE student_schedule (
+    student_id INT NOT NULL,
+    uc_id INT NOT NULL,
+    shift_id INT NOT NULL,
+    PRIMARY KEY (student_id, uc_id, shift_id),
+    FOREIGN KEY (student_id) REFERENCES students(id),
+    FOREIGN KEY (uc_id) REFERENCES ucs(id),
+    FOREIGN KEY (shift_id) REFERENCES shifts(id)
+);
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

@@ -40,6 +40,10 @@ public class Student {
         return ucs;
     }
 
+    public void setUCs(List<Integer> ucs) {
+        this.ucs = ucs;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -60,8 +64,16 @@ public class Student {
         return 0;
     }
 
+    public Map<Integer, List<Integer>> getSchedule() {
+        return schedule;
+    }
 
-    public Map<UC, Map<Shift, List<TimeSlot>>> getSchedule() {
+    public void setSchedule(Map<Integer, List<Integer>> schedule) {
+        this.schedule = schedule;
+    }
+
+
+    public Map<UC, Map<Shift, List<TimeSlot>>> getSchedulePretty() {
         return null;
     }
 

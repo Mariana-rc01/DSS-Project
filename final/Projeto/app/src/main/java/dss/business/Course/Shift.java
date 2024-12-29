@@ -1,17 +1,28 @@
 package dss.business.Course;
 
+import java.util.List;
+
 public class Shift {
 
     protected int id;
     protected int capacityRoom;
     protected int enrolledCount;
     protected int ucId;
+    protected List<TimeSlot> timeSlots;
 
     public Shift(int id, int capacityRoom, int enrolledCount, int ucId) {
         this.id = id;
         this.capacityRoom = capacityRoom;
         this.enrolledCount = enrolledCount;
         this.ucId = ucId;
+    }
+
+    public Shift(int id, int capacityRoom, int enrolledCount, int ucId, List<TimeSlot> timeSlots) {
+        this.id = id;
+        this.capacityRoom = capacityRoom;
+        this.enrolledCount = enrolledCount;
+        this.ucId = ucId;
+        this.timeSlots = timeSlots;
     }
 
     // Getters e Setters
