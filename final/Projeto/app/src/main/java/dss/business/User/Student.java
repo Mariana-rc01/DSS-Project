@@ -72,17 +72,18 @@ public class Student {
     }
 
     public void setSchedule(Map<Integer, List<Integer>> schedule) {
-        this.schedule = schedule;
+        this.schedule = new HashMap<>();
+        for (Map.Entry<Integer, List<Integer>> entry : schedule.entrySet()) {
+            this.schedule.put(entry.getKey(), new ArrayList<>(entry.getValue()));
+        }
     }
-
 
     public Map<UC, Map<Shift, List<TimeSlot>>> getSchedulePretty() {
         return null;
     }
 
-
-   public void addSchedule(Map<Integer, List<Integer>> schedule) {
-   
+    public void removeSchedule() {
+        this.schedule = new HashMap<>();
    }
 
     public String getEmail(){

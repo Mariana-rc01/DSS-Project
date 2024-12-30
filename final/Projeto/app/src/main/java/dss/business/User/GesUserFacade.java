@@ -20,4 +20,8 @@ public class GesUserFacade implements IGesUser {
     public boolean verifyPassword(int idUser, String password){
         return false;
     }
+
+    public Student getStudent(int idStudent) throws Exception{
+        return students.getStudent(idStudent);
+    }
 }

@@ -42,6 +42,10 @@ public class LNFacade {
         return gesUserFacade.verifyPassword(idUser, password);
     }
 
+    public Student getStudent(int idStudent) throws Exception{
+        return gesUserFacade.getStudent(idStudent);
+    }
+
     // Schedule
     public List<Integer> getStudentsWithScheduleConflicts(int idCourse) {
         return gesScheduleFacade.getStudentsWithScheduleConflicts(idCourse);
@@ -75,7 +79,7 @@ public class LNFacade {
         return gesScheduleFacade.getStudentSchedule(idStudent, idCourse);
     }
 
-    public boolean registerSchedule (int idCourse, int idStudent, Map<Integer, List<Integer>> schedule) {
-        return gesScheduleFacade.registerSchedule(idCourse, idStudent, schedule);
+    public boolean registerSchedule (int idStudent, Map<Integer, List<Integer>> schedule) {
+        return gesScheduleFacade.registerSchedule(idStudent, schedule);
     }
 }

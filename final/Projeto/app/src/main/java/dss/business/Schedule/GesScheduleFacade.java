@@ -72,8 +72,22 @@ public class GesScheduleFacade implements ISchedule {
         return null;
     }
 
-    // Mariana
-    public boolean registerSchedule (int idCourse, int idStudent, Map<Integer, List<Integer>> schedule) {
-        return false;
+    public boolean registerSchedule (int idStudent, Map<Integer, List<Integer>> schedule) {
+        try {
+
+            Student student = students.getStudent(idStudent);
+            if (student == null) {
+                return false;
+            }
+
+            students.removeScheduleFromStudent(idStudent);
+            students.addScheduleToStudent(idStudent, schedule);
+
+            return true;
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

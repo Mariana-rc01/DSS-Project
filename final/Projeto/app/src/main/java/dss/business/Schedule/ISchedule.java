@@ -24,6 +24,6 @@ public interface ISchedule {
 
     public Map<UC, Map<Shift,List<TimeSlot>>> getStudentSchedule (int idStudent, int idCourse);
 
-    public boolean registerSchedule (int idCourse, int idStudent, Map<Integer, List<Integer>> schedule);
+    public boolean registerSchedule (int idStudent, Map<Integer, List<Integer>> schedule);
 
 }

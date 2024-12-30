@@ -190,5 +190,58 @@ public class StudentDAO {
             throw new Exception("Erro ao buscar estudantes do curso: " + e.getMessage());
         }
         return students;
-    }    
+    }
+
+    public void removeScheduleFromStudent(int id) throws Exception {
+        try {
+            try (PreparedStatement stm = DAOConfig.connection.prepareStatement(
+                    "DELETE FROM student_schedule WHERE student_id = ?")) {
+                stm.setInt(1, id);
+                stm.executeUpdate();
+            }
+
+            try (PreparedStatement stm = DAOConfig.connection.prepareStatement(
+                    "SELECT shift_id FROM student_schedule WHERE student_id = ?")) {
+                stm.setInt(1, id);
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    int shiftId = rs.getInt("shift_id");
+                    // Decrementar a contagem de alunos nos shifts antigos
+                    try (PreparedStatement updateShiftStm = DAOConfig.connection.prepareStatement(
+                            "UPDATE shifts SET enrolledCount = enrolledCount - 1 WHERE id = ?")) {
+                        updateShiftStm.setInt(1, shiftId);
+                        updateShiftStm.executeUpdate();
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new Exception("Erro ao remover horário do estudante: " + e.getMessage());
+        }
+    }
+
+    public void addScheduleToStudent(int id, Map<Integer, List<Integer>> schedule) throws Exception {
+        try {
+            for (Map.Entry<Integer, List<Integer>> entry : schedule.entrySet()) {
+                int ucId = entry.getKey();
+                for (int shiftId : entry.getValue()) {
+                    try (PreparedStatement stm = DAOConfig.connection.prepareStatement(
+                            "INSERT INTO student_schedule (student_id, uc_id, shift_id) VALUES (?, ?, ?)")) {
+                        stm.setInt(1, id);
+                        stm.setInt(2, ucId);
+                        stm.setInt(3, shiftId);
+                        stm.executeUpdate();
+                    }
+
+                    // Incrementar a contagem de alunos nos shifts novos
+                    try (PreparedStatement updateShiftStm = DAOConfig.connection.prepareStatement(
+                            "UPDATE shifts SET enrolledCount = enrolledCount + 1 WHERE id = ?")) {
+                        updateShiftStm.setInt(1, shiftId);
+                        updateShiftStm.executeUpdate();
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new Exception("Erro ao adicionar horário ao estudante: " + e.getMessage());
+        }
+    }
 }
