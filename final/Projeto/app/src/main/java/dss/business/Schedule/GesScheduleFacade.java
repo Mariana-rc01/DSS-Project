@@ -1,6 +1,7 @@
 package dss.business.Schedule;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import dss.business.Course.*;
 import dss.business.User.Student;
@@ -47,7 +48,10 @@ public class GesScheduleFacade implements ISchedule {
     public List<Student> getStudentsWithoutSchedule (int idCourse) {
         try {
             Course course = courses.getCourse(idCourse);
-            return course.getStudentsWithoutSchedule();
+            if (course == null) {
+                return null;
+            }
+            return students.getStudentsByCourse(idCourse).stream().filter(student -> student.getSchedule().isEmpty()).collect(Collectors.toList());
         } catch (Exception e) {
             return null;
         }

@@ -47,11 +47,7 @@ public class Course {
     public void setVisibilitySchedules(boolean visibilitySchedules) {
         this.visibilitySchedules = visibilitySchedules;
     }
-
-    public List<Student> getStudentsWithoutSchedule() {
-        throw new UnsupportedOperationException();
-    }
-
+    
     /*
     // Mariana
     public void generateSchedule(){
