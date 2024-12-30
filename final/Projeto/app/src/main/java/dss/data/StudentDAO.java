@@ -173,4 +173,22 @@ public class StudentDAO {
             return 0;
         }
     }
+
+    public List<Student> getStudentsByCourse(int course) throws Exception {
+        List<Student> students = new ArrayList<>();
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement("SELECT id FROM students WHERE course = ?")) {
+            stm.setInt(1, course);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                try {
+                    students.add(getStudent(rs.getInt("id")));
+                } catch (Exception e) {
+                    System.err.println("Erro ao buscar estudante com ID " + rs.getInt("id") + ": " + e.getMessage());
+                }
+            }
+        } catch (SQLException e) {
+            throw new Exception("Erro ao buscar estudantes do curso: " + e.getMessage());
+        }
+        return students;
+    }    
 }

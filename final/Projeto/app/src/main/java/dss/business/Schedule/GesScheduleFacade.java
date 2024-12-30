@@ -19,7 +19,7 @@ public class GesScheduleFacade implements ISchedule {
     }
 
     // Mariana
-    public List<Integer> getStudentsWithScheduleConflicts(String idCourse) {
+    public List<Integer> getStudentsWithScheduleConflicts(int idCourse) {
         return null;
     }
 
@@ -32,30 +32,48 @@ public class GesScheduleFacade implements ISchedule {
         
     }
 
-    public List<Student> getStudentsWithoutSchedule (String idCourse) {
+    public List<Student> getStudentsWithoutSchedule (int idCourse) {
         return null;
     }
 
-    public boolean importTimeTable (String idCourse, String year, String path) {
+    public boolean importTimeTable (int idCourse, int year, String path) {
         return false;
     }
 
-    public boolean postSchedule (String idCourse) {
+    public boolean postSchedule (int idCourse) {
         return false;
     }
 
-    // Mariana
-    public boolean sendEmails (String idCourse) {
+    public boolean sendEmails (int idCourse) {
+        try {
+            Course course = courses.getCourse(idCourse);
+            if (course == null) {
+                return false;
+            }
 
-        return false;
+            List<Student> studentss = students.getStudentsByCourse(idCourse);
+            if (studentss == null) {
+                return false;
+            }
+
+            for (Student student : studentss) {
+                student.sendEmail();
+            }
+
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    public Map<UC, Map<Shift,List<TimeSlot>>> getStudentSchedule (int idStudent, String idCourse) {
+    public Map<UC, Map<Shift,List<TimeSlot>>> getStudentSchedule (int idStudent, int idCourse) {
         return null;
     }
 
     // Mariana
-    public boolean registerSchedule (String idCourse, int idStudent, Map<Integer, List<Integer>> schedule) {
+    public boolean registerSchedule (int idCourse, int idStudent, Map<Integer, List<Integer>> schedule) {
         return false;
     }
 }

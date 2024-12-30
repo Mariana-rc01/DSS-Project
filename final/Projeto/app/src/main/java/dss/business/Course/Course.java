@@ -57,13 +57,6 @@ public class Course {
 
     /*
     // Mariana
-    public boolean sendEmail(String to, String subject, String body){
-        
-    }
-    */
-
-    /*
-    // Mariana
     public Map<Integer, Student> importStudents(String path){
         
     }

@@ -13,20 +13,20 @@ public class GesCourseFacade implements IGesCourse {
         this.ucs = new UCDAO();
     }
 
-    public boolean registerPolicyOption(String idCourse, String idUC, String policyPreference){
+    public boolean registerPolicyOption(int idCourse, int idUC, String policyPreference){
         return false;
     }
 
     // Mariana
-    public boolean importStudents(String path, String idCourse){
+    public boolean importStudents(String path, int idCourse){
         return false;
     }
 
-    public boolean importUCs(String path, String idCourse){
+    public boolean importUCs(String path, int idCourse){
         return false;
     }
 
-    public boolean addStudent(int idStudent, String idCourse){
+    public boolean addStudent(int idStudent, int idCourse){
         return false;
     }
 }

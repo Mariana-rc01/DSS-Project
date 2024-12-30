@@ -5,6 +5,9 @@ import java.util.*;
 import dss.business.Course.Shift;
 import dss.business.Course.TimeSlot;
 import dss.business.Course.UC;
+import jakarta.mail.*;
+import jakarta.mail.internet.*;
+import jakarta.activation.*;
 
 public class Student {
 
@@ -91,11 +94,60 @@ public class Student {
     }
 
     public void sendEmail() {
+        String title = "Horário do Curso publicado";
+        String body = this.buildEmailContent();
 
+        String to = this.getEmail();
+
+        this.sendEmailAux(title, body, to);
     }
 
-    public void sendEmailAux(String title, String body){
+    public void sendEmailAux(String title, String body, String to) {
+        // Email de onde quer enviar
+        String from = "xxxx@gmail.com";
+        String password = "xxxx";
+        String host = "smtp.gmail.com";
+        int port = 587;
 
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", port);  
+        props.setProperty("mail.smtp.host", host);  
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, password);
+            }
+        });
+        
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress("destinatario@dominio.com"));
+            message.setSubject(title);
+            message.setText(body);
+        
+            //Transport.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String buildEmailContent() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Bom dia, ").append(this.getEmail()).append("!\n\n");
+        sb.append("O horário do seu curso foi publicado.\n");
+        sb.append("Encontram-se, de seguida, os seus dados de log-in:\n");
+        sb.append("ID: ").append(this.getId()).append("\n");
+        sb.append("Palavra-passe: ").append(this.getPassword()).append("\n\n");
+        sb.append("Na plataforma encontra-se o seu horário.\n");
+        sb.append("Atentamente,\n");
+        sb.append("Diretor de Curso");
+    
+        return sb.toString();
     }
 
     @Override

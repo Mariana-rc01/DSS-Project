@@ -21,6 +21,9 @@ dependencies {
     implementation(libs.guava)
     implementation("org.mariadb.jdbc:mariadb-java-client:2.7.1")
 
+    implementation("jakarta.mail:jakarta.mail-api:2.0.1") // Jakarta Mail
+    implementation("com.sun.mail:jakarta.mail:2.0.1")
+    implementation("com.sun.activation:jakarta.activation:2.0.1") 
 }
 
 testing {

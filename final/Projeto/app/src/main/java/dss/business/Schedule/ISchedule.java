@@ -8,22 +8,22 @@ import dss.business.User.Student;
 
 public interface ISchedule {
     
-    public List<Integer> getStudentsWithScheduleConflicts(String idCourse);
+    public List<Integer> getStudentsWithScheduleConflicts(int idCourse);
 
     public boolean exportSchedule (int idStudent, String filename);
 
     public void generateSchedule (int idCourse);
 
-    public List<Student> getStudentsWithoutSchedule (String idCourse);
+    public List<Student> getStudentsWithoutSchedule (int idCourse);
 
-    public boolean importTimeTable (String idCourse, String year, String path);
+    public boolean importTimeTable (int idCourse, int year, String path);
 
-    public boolean postSchedule (String idCourse);
+    public boolean postSchedule (int idCourse);
 
-    public boolean sendEmails (String idCourse);
+    public boolean sendEmails (int idCourse);
 
-    public Map<UC, Map<Shift,List<TimeSlot>>> getStudentSchedule (int idStudent, String idCourse);
+    public Map<UC, Map<Shift,List<TimeSlot>>> getStudentSchedule (int idStudent, int idCourse);
 
-    public boolean registerSchedule (String idCourse, int idStudent, Map<Integer, List<Integer>> schedule);
+    public boolean registerSchedule (int idCourse, int idStudent, Map<Integer, List<Integer>> schedule);
 
 }
