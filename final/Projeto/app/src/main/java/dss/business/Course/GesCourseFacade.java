@@ -47,7 +47,26 @@ public class GesCourseFacade implements IGesCourse {
     }
 
     public boolean importUCs(String path, int idCourse){
-        return false;
+        try {
+            Course course = courses.getCourse(idCourse);
+            if (course == null) {
+                return false;
+            }
+
+            List<UC> ucS = course.importUCs(path);
+
+            if (ucS != null) {
+                for (UC uc : ucS) {
+                    ucs.addUC(uc.getId(), uc.getName(), uc.getYear(), uc.getSemester(), uc.getPolicyPreference(), uc.getIdCourse());
+                }
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean addStudent(int idStudent, int idCourse){

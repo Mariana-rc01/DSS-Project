@@ -80,3 +80,7 @@ Turmas3L-1.0-SNAPSHOT.jar
 
 # Ignore Gradle build output directory
 build
+
+*.class
+
+.vscode/

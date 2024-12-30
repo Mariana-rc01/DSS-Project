@@ -14,7 +14,11 @@ public class GesUserFacade implements IGesUser {
     }
 
     public boolean verifyIdentity(int idUser){
-        return false;
+        try {
+            return students.getStudent(idUser) != null || directors.getCourseDirector(idUser) != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean verifyPassword(int idUser, String password){

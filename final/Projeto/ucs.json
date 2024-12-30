@@ -1,0 +1,16 @@
+[
+    {
+        "id": 4,
+        "name": "Álgebra Linear",
+        "year": 1,
+        "semester": 1,
+        "policy": ""
+    },
+    {
+        "id": 5,
+        "name": "Tópicos de Matemática Discreta",
+        "year": 1,
+        "semester": 1,
+        "policy": ""
+    }
+]

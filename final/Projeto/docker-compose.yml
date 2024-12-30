@@ -12,3 +12,5 @@ services:
       MARIADB_ROOT_PASSWORD: mypass
     ports:
       - "3306:3306"
+    volumes:
+      - ./app/DB:/docker-entrypoint-initdb.d

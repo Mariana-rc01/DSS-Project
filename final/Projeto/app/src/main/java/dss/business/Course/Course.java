@@ -1,9 +1,14 @@
 package dss.business.Course;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.*;
+import javax.json.*;
+import javax.json.stream.JsonParser;
 
 import dss.business.User.*;
 
@@ -43,15 +48,13 @@ public class Course {
         this.visibilitySchedules = visibilitySchedules;
     }
 
+    public List<Student> getStudentsWithoutSchedule() {
+        throw new UnsupportedOperationException();
+    }
+
     /*
     // Mariana
     public void generateSchedule(){
-        
-    }
-    */
-
-    /*
-    public List<Student> showStudentsWithoutSchedule(){
         
     }
     */
@@ -100,6 +103,39 @@ public class Course {
         }
     }
 
+    public boolean postSchedule() {
+        setVisibilitySchedules(true);
+        return true;
+    }
+
+    public List<UC> importUCs(String path) {
+        File file = new File(path);
+        if (!file.exists() || file.isDirectory()) {
+            throw new IllegalArgumentException("File does not exist or is a directory");
+        }
+
+        List<UC> ucs = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            JsonReader jsonReader = Json.createReader(br);
+            JsonArray jsonArray = jsonReader.readArray();
+            for(JsonObject jsonObject : jsonArray.getValuesAs(JsonObject.class)){
+                int id = jsonObject.getInt("id");
+                String name = jsonObject.getString("name");
+                int year = jsonObject.getInt("year");
+                int semester = jsonObject.getInt("semester");
+                String policyPreference = jsonObject.getString("policy");  
+                UC uc = new UC(id, name, year, semester, policyPreference, this.getId());
+                ucs.add(uc);
+            }
+            return ucs;
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Error reading file", e);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Error parsing JSON", e);
+        }
+    }
+
     /*
     public String generateRandomPassword(int length){
         
@@ -125,8 +161,6 @@ public class Course {
     */
 
     /*
-    public void importUCs(String path){
-        
-    }
+
     */
 }

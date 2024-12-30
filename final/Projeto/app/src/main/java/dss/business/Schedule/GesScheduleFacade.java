@@ -45,7 +45,12 @@ public class GesScheduleFacade implements ISchedule {
     }
 
     public List<Student> getStudentsWithoutSchedule (int idCourse) {
-        return null;
+        try {
+            Course course = courses.getCourse(idCourse);
+            return course.getStudentsWithoutSchedule();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public boolean importTimeTable (int idCourse, int year, String path) {
@@ -53,7 +58,15 @@ public class GesScheduleFacade implements ISchedule {
     }
 
     public boolean postSchedule (int idCourse) {
-        return false;
+        try {
+            Course course = courses.getCourse(idCourse);
+            course.postSchedule();
+            courses.updateCourse(idCourse, course.getName(), course.isVisibilitySchedules());
+            sendEmails(idCourse);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean sendEmails (int idCourse) {

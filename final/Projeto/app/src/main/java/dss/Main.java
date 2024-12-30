@@ -67,6 +67,14 @@ public class Main {
                 e.printStackTrace();
             }
 
+            // Testar importUCs
+
+            try {
+                facade.importUCs("../ucs.json", 1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             TextUI ui = new TextUI();
             ui.run();
         } catch (Exception e) {

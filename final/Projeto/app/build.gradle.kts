@@ -24,6 +24,8 @@ dependencies {
     implementation("jakarta.mail:jakarta.mail-api:2.0.1") // Jakarta Mail
     implementation("com.sun.mail:jakarta.mail:2.0.1")
     implementation("com.sun.activation:jakarta.activation:2.0.1") 
+    implementation("javax.json:javax.json-api:1.1.4")
+    implementation("org.glassfish:javax.json:1.1.4")
 }
 
 testing {

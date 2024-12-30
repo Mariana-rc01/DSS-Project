@@ -10,7 +10,7 @@ public class UCDAO {
 
     public boolean addUC(int id, String name, int year, int semester, String policyPreference, int course) throws Exception {
         try (PreparedStatement stm = DAOConfig.connection.prepareStatement(
-                "INSERT INTO ucs (id, name, year, semester, policyPreference, course) VALUES (?, ?, ?, ?, ?)")) {
+                "INSERT INTO ucs (id, name, year, semester, policyPreference, course) VALUES (?, ?, ?, ?, ?, ?)")) {
             stm.setInt(1, id);
             stm.setString(2, name);
             stm.setInt(3, year);
