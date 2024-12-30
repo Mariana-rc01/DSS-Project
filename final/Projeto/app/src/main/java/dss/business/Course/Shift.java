@@ -58,6 +58,14 @@ public class Shift {
         this.ucId = ucId;
     }
 
+    public List<TimeSlot> getTimeSlots() {
+        return timeSlots;
+    }
+
+    public void setTimeSlots(List<TimeSlot> timeSlots) {
+        this.timeSlots = timeSlots;
+    }
+
     public boolean hasCapacity() {
         return enrolledCount < capacityRoom;
     }

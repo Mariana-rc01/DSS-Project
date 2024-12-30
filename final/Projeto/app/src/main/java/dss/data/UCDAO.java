@@ -8,14 +8,15 @@ import dss.business.Course.*;
 
 public class UCDAO {
 
-    public boolean addUC(int id, String name, int year, int semester, String policyPreference) throws Exception {
+    public boolean addUC(int id, String name, int year, int semester, String policyPreference, int course) throws Exception {
         try (PreparedStatement stm = DAOConfig.connection.prepareStatement(
-                "INSERT INTO ucs (id, name, year, semester, policyPreference) VALUES (?, ?, ?, ?, ?)")) {
+                "INSERT INTO ucs (id, name, year, semester, policyPreference, course) VALUES (?, ?, ?, ?, ?)")) {
             stm.setInt(1, id);
             stm.setString(2, name);
             stm.setInt(3, year);
             stm.setInt(4, semester);
             stm.setString(5, policyPreference);
+            stm.setInt(6, course);
             stm.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -35,7 +36,8 @@ public class UCDAO {
                         rs.getInt("year"),
                         rs.getInt("semester"),
                         rs.getString("policyPreference"),
-                        shifts
+                        shifts,
+                        rs.getInt("course")
                 );
             }
             return null;
@@ -44,14 +46,15 @@ public class UCDAO {
         }
     }
 
-    public boolean updateUC(int id, String name, int year, int semester, String policyPreference) throws Exception {
+    public boolean updateUC(int id, String name, int year, int semester, String policyPreference, int course) throws Exception {
         try (PreparedStatement stm = DAOConfig.connection.prepareStatement(
-                "UPDATE ucs SET name = ?, year = ?, semester = ?, policyPreference = ? WHERE id = ?")) {
+                "UPDATE ucs SET name = ?, year = ?, semester = ?, policyPreference = ?, course_id = ? WHERE id = ?")) {
             stm.setString(1, name);
             stm.setInt(2, year);
             stm.setInt(3, semester);
             stm.setString(4, policyPreference);
-            stm.setInt(5, id);
+            stm.setInt(5, course);
+            stm.setInt(6, id);
             int rowsUpdated = stm.executeUpdate();
             return rowsUpdated > 0;
         } catch (SQLException e) {

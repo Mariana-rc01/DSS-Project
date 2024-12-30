@@ -33,7 +33,13 @@ CREATE TABLE IF NOT EXISTS `dss`.`ucs` (
   `year` INT NOT NULL,
   `semester` INT NOT NULL,
   `policyPreference` TEXT,
-  PRIMARY KEY (`id`))
+  `course` INT,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_ucs_courses`
+    FOREIGN KEY (`course`)
+    REFERENCES `dss`.`courses` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------

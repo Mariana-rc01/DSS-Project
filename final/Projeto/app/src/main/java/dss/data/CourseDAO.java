@@ -1,8 +1,17 @@
 package dss.data;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import dss.business.Course.Course;
+import dss.business.Course.Shift;
+import dss.business.Course.Theoretical;
+import dss.business.Course.TheoreticalPractical;
+import dss.business.Course.TimeSlot;
+import dss.business.User.AthleteStudent;
+import dss.business.User.EmployedStudent;
+import dss.business.User.Student;
 
 public class CourseDAO {
 
@@ -68,4 +77,107 @@ public class CourseDAO {
             throw new Exception("Erro ao remover curso: " + e.getMessage());
         }
     }
+
+    public List<Shift> getShiftsByCourse(int idCourse) throws Exception {
+        List<Shift> shifts = new ArrayList<>();
+        UCDAO ucDAO = new UCDAO();
+        String query = "SELECT s.* FROM shifts s INNER JOIN ucs u ON s.uc = u.id WHERE u.course = ?";
+
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement(query)) {
+            stm.setInt(1, idCourse);
+            ResultSet rs = stm.executeQuery();
+
+            while (rs.next()) {
+                int shiftType = rs.getInt("type");
+                List<TimeSlot> timeSlots = ucDAO.getTimeSlotsByShift(rs.getInt("id"));
+                int ucId = rs.getInt("uc");
+
+                if (shiftType == 0) {
+                    shifts.add(new Theoretical(
+                            rs.getInt("id"),
+                            rs.getInt("capacityRoom"),
+                            rs.getInt("enrolledCount"),
+                            ucId,
+                            timeSlots
+                    ));
+                } else if (shiftType == 1) {
+                    shifts.add(new TheoreticalPractical(
+                            rs.getInt("id"),
+                            rs.getInt("capacityRoom"),
+                            rs.getInt("enrolledCount"),
+                            rs.getInt("capacity"),
+                            ucId,
+                            timeSlots
+                    ));
+                } else {
+                    shifts.add(new Shift(
+                            rs.getInt("id"),
+                            rs.getInt("capacityRoom"),
+                            rs.getInt("enrolledCount"),
+                            ucId,
+                            timeSlots
+                    ));
+                }
+            }
+
+            return shifts;
+        } catch (SQLException e) {
+            throw new Exception("Erro ao obter shifts pelo ID do curso: " + e.getMessage());
+        }
+    }
+
+    public boolean addStudent(Student student) throws Exception {
+        String insertStudentQuery = "INSERT INTO students (id, password, type, course) VALUES (?, ?, ?, ?)";
+        String insertStudentUCQuery = "INSERT INTO student_ucs (student_id, uc_id) VALUES (?, ?)";
+        Connection connection = null;
+        PreparedStatement studentStatement = null;
+        PreparedStatement ucStatement = null;
+    
+        try {
+            connection = DAOConfig.connection;
+            connection.setAutoCommit(false);
+    
+            studentStatement = connection.prepareStatement(insertStudentQuery);
+            studentStatement.setInt(1, student.getId());
+            studentStatement.setString(2, student.getPassword());
+            studentStatement.setInt(3, getStudentType(student));
+            studentStatement.setInt(4, student.getCourse());
+            studentStatement.executeUpdate();
+    
+            ucStatement = connection.prepareStatement(insertStudentUCQuery);
+            for (Integer ucId : student.getUCs()) {
+                ucStatement.setInt(1, student.getId());
+                ucStatement.setInt(2, ucId);
+                ucStatement.addBatch();
+            }
+            ucStatement.executeBatch();
+    
+            connection.commit();
+            return true;
+    
+        } catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    connection.rollback();
+                } catch (SQLException rollbackException) {
+                    throw new Exception("Erro ao fazer rollback: " + rollbackException.getMessage(), rollbackException);
+                }
+            }
+            throw new Exception("Erro ao adicionar estudante: " + e.getMessage(), e);
+        } finally {
+            if (studentStatement != null) studentStatement.close();
+            if (ucStatement != null) ucStatement.close();
+            if (connection != null) connection.setAutoCommit(true);
+        }
+    }
+
+    private int getStudentType(Student student) {
+        if (student instanceof AthleteStudent) {
+            return 1;
+        } else if (student instanceof EmployedStudent) {
+            return 2;
+        }
+        return 0;
+    }
+    
 }

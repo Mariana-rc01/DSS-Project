@@ -14,11 +14,11 @@ VALUES
 (103, 'password789', 2, 3);  -- Estudante empregado no curso de Gestão
 
 -- Inserir dados na tabela `ucs`
-INSERT INTO `dss`.`ucs` (`id`, `name`, `year`, `semester`, `policyPreference`)
+INSERT INTO `dss`.`ucs` (`id`, `name`, `year`, `semester`, `policyPreference`, `course`)
 VALUES
-(1, 'Matemática I', 1, 1, 'Preferência teórica'),
-(2, 'Programação', 1, 2, 'Preferência prática'),
-(3, 'Física', 2, 1, 'Preferência teórica');
+(1, 'Matemática I', 1, 1, 'Preferência teórica',1),
+(2, 'Programação', 1, 2, 'Preferência prática',1),
+(3, 'Física', 2, 1, 'Preferência teórica',2);
 
 -- Inserir dados na tabela `shifts`
 INSERT INTO `dss`.`shifts` (`id`, `capacityRoom`, `enrolledCount`, `type`, `capacity`, `uc`)

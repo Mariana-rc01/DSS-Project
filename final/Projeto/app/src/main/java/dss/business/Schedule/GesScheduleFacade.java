@@ -1,7 +1,6 @@
 package dss.business.Schedule;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import dss.business.Course.*;
 import dss.business.User.Student;
@@ -18,9 +17,22 @@ public class GesScheduleFacade implements ISchedule {
         this.students = new StudentDAO();
     }
 
-    // Mariana
     public List<Integer> getStudentsWithScheduleConflicts(int idCourse) {
-        return null;
+        List<Integer> studentsWithScheduleConflicts = new ArrayList<>();
+        try {
+            List<Student> studentss = this.students.getStudentsByCourse(idCourse);
+
+            List<Shift> shifts = this.courses.getShiftsByCourse(idCourse);
+
+            for (Student student : studentss) {
+                if (student.hasScheduleConflict(shifts)) {
+                    studentsWithScheduleConflicts.add(student.getId());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return studentsWithScheduleConflicts;
     }
 
     public boolean exportSchedule (int idStudent, String filename) {

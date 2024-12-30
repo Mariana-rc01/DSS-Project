@@ -21,7 +21,7 @@ public class LNFacade {
         return gesCourseFacade.registerPolicyOption(idCourse, idUC, policyPreference);
     }
 
-    public boolean importStudents(String path, int idCourse){
+    public boolean importStudents(String path, int idCourse) throws Exception{
         return gesCourseFacade.importStudents(path, idCourse);
     }
 

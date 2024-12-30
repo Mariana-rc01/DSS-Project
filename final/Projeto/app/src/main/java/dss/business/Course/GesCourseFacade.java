@@ -1,5 +1,8 @@
 package dss.business.Course;
 
+import java.util.*;
+
+import dss.business.User.Student;
 import dss.data.CourseDAO;
 import dss.data.UCDAO;
 
@@ -17,8 +20,29 @@ public class GesCourseFacade implements IGesCourse {
         return false;
     }
 
-    // Mariana
-    public boolean importStudents(String path, int idCourse){
+    public boolean importStudents(String path, int idCourse) throws Exception{
+        try{
+            List<Student> studentS;
+            Course course = courses.getCourse(idCourse);
+            if (course == null) {
+                return false;
+            }
+
+            studentS = course.importStudents(path);
+
+            if (studentS != null) {
+                for (Student student : studentS) {
+                    boolean flag = courses.addStudent(student);
+                    if (!flag) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         return false;
     }
 

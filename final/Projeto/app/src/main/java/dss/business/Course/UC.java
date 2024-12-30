@@ -10,23 +10,26 @@ public class UC {
     private int semester;
     private String policyPreference;
     private List<Shift> shifts;
+    private int idCourse;
 
     // Construtor
-    public UC(int id, String name, int year, int semester, String policyPreference) {
+    public UC(int id, String name, int year, int semester, String policyPreference, int idCourse) {
         this.id = id;
         this.name = name;
         this.year = year;
         this.semester = semester;
         this.policyPreference = policyPreference;
+        this.idCourse = idCourse;
     }
 
-    public UC(int id, String name, int year, int semester, String policyPreference, List<Shift> shifts) {
+    public UC(int id, String name, int year, int semester, String policyPreference, List<Shift> shifts, int idCourse) {
         this.id = id;
         this.name = name;
         this.year = year;
         this.semester = semester;
         this.policyPreference = policyPreference;
         this.shifts = shifts;
+        this.idCourse = idCourse;
     }
 
     // Getters e Setters
@@ -36,6 +39,14 @@ public class UC {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdCourse() {
+        return idCourse;
+    }
+
+    public void setIdCourse(int idCourse) {
+        this.idCourse = idCourse;
     }
 
     public String getName() {

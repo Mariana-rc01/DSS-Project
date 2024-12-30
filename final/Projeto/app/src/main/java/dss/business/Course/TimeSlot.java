@@ -57,4 +57,18 @@ public class TimeSlot {
     public void setShiftId(int shiftId) {
         this.shiftId = shiftId;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        TimeSlot timeSlot = (TimeSlot) obj;
+        return timeStart.equals(timeSlot.timeStart) && timeEnd.equals(timeSlot.timeEnd) && weekDay == timeSlot.weekDay;
+    }
+
+    public boolean hasConflict(TimeSlot timeSlot) {
+        return this.timeStart.before(timeSlot.timeEnd) &&
+        this.timeEnd.after(timeSlot.timeStart) &&
+        this.weekDay == timeSlot.weekDay;
+    }
 }

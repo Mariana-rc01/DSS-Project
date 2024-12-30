@@ -23,6 +23,21 @@ public class Student {
         this.course = idCourse;
     }
 
+    public Student(int id, String password, int idCourse, List<Integer> ucs){
+        this.id = id;
+        this.password = password;
+        this.course = idCourse;
+        this.ucs = ucs;
+    }
+
+    public Student(int id, String password, int idCourse, List<Integer> ucs, Map<Integer, List<Integer>> schedule){
+        this.id = id;
+        this.password = password;
+        this.course = idCourse;
+        this.ucs = ucs;
+        this.schedule = schedule;
+    }
+
     public int getId() {
         return id;
     }
@@ -78,6 +93,18 @@ public class Student {
         }
     }
 
+    public static String generateRandomPassword() {
+        String password = "";
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+
+        for (int i = 0; i < 8; i++) {
+            password += characters.charAt(random.nextInt(characters.length()));
+        }
+
+        return password;
+    }
+
     public Map<UC, Map<Shift, List<TimeSlot>>> getSchedulePretty() {
         return null;
     }
@@ -91,7 +118,38 @@ public class Student {
     }
 
     public boolean hasSchedule() {
-        return false;
+        return !schedule.isEmpty();
+    }
+
+    public boolean hasScheduleConflict(List<Shift> shifts) {
+        List<TimeSlot> timeSlots = new ArrayList<>();
+
+        for (Map.Entry<Integer, List<Integer>> entry : this.schedule.entrySet()) {
+            for (int shiftId : entry.getValue()) {
+                Shift shift = this.findShiftById(shifts, shiftId);
+                if (shift != null) {
+                    for (TimeSlot timeSlot : shift.getTimeSlots()) {
+                        if (timeSlots.contains(timeSlot)) {
+                            return true;
+                        }
+                        timeSlots.add(timeSlot);
+                    }
+                }
+            }
+        }
+
+        return timeSlots.stream().anyMatch(timeSlot -> 
+                    timeSlots.stream().filter(otherTimeSlot -> !timeSlot.equals(otherTimeSlot))
+                    .anyMatch(timeSlot::hasConflict));
+    }
+
+    private Shift findShiftById(List<Shift> shifts, int shiftId) {
+        for (Shift shift : shifts) {
+            if (shift.getId() == shiftId) {
+                return shift;
+            }
+        }
+        return null;
     }
 
     public void sendEmail() {
