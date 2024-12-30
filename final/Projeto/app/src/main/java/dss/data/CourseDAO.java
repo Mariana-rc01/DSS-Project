@@ -1,6 +1,7 @@
 package dss.data;
 
 import java.sql.*;
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -168,6 +169,37 @@ public class CourseDAO {
             if (studentStatement != null) studentStatement.close();
             if (ucStatement != null) ucStatement.close();
             if (connection != null) connection.setAutoCommit(true);
+        }
+    }
+
+    public boolean addShiftToCourse(int id, int capacityRoom, int enrolledCount, int type, int capacity, int ucId) throws Exception {
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement(
+                "INSERT INTO shifts (id, capacityRoom, enrolledCount, type, capacity, uc) VALUES (?, ?, ?, ?, ?, ?)")) {
+            stm.setInt(1, id);
+            stm.setInt(2, capacityRoom);
+            stm.setInt(3, enrolledCount);
+            stm.setInt(4, type);
+            stm.setInt(5, capacity);
+            stm.setInt(6, ucId);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new Exception("Erro ao adicionar shift: " + e.getMessage());
+        }
+    }
+
+    public boolean addTimeSlotToShift(int id, Time timeStart, Time timeEnd, DayOfWeek weekDay, int shiftId) throws Exception {
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement(
+                "INSERT INTO timeslots (id, time_start, time_end, weekDay, shift) VALUES (?, ?, ?, ?, ?)")) {
+            stm.setInt(1, id);
+            stm.setTime(2, timeStart);
+            stm.setTime(3, timeEnd);
+            stm.setInt(4, weekDay.getValue());
+            stm.setInt(5, shiftId);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new Exception("Erro ao adicionar timeslot: " + e.getMessage());
         }
     }
 

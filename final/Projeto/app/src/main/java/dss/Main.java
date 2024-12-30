@@ -75,6 +75,14 @@ public class Main {
                 e.printStackTrace();
             }
 
+            // Testar import TimeTable
+
+            try {
+                facade.importTimeTable(1, 1, "../shifts.json");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             TextUI ui = new TextUI();
             ui.run();
         } catch (Exception e) {

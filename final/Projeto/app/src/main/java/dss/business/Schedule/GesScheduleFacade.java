@@ -58,7 +58,38 @@ public class GesScheduleFacade implements ISchedule {
     }
 
     public boolean importTimeTable (int idCourse, int year, String path) {
-        return false;
+        try {
+            Course course = courses.getCourse(idCourse);
+            if (course == null) {
+                return false;
+            }
+
+            List<Shift> shifts = course.importTimeTable(year, path);
+            if (shifts == null) {
+                return false;
+            }
+
+            for (Shift shift : shifts) {
+                int capacity = -1;
+                int type = 0;
+                if(shift instanceof TheoreticalPractical) {
+                    type = 1;
+                    capacity = ((TheoreticalPractical) shift).getCapacity();
+                }
+
+                courses.addShiftToCourse(shift.getId(), shift.getCapacityRoom(), shift.getEnrolledCount(), type, capacity, shift.getUcId());
+
+                for (TimeSlot timeSlot : shift.getTimeSlots()) {
+                    courses.addTimeSlotToShift(timeSlot.getId(), timeSlot.getTimeStart(), timeSlot.getTimeEnd(), timeSlot.getWeekDay(), shift.getId());
+                }
+            }
+
+            return true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean postSchedule (int idCourse) {

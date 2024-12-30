@@ -6,6 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
+import java.sql.Time;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.util.*;
 import javax.json.*;
 import javax.json.stream.JsonParser;
@@ -47,7 +51,7 @@ public class Course {
     public void setVisibilitySchedules(boolean visibilitySchedules) {
         this.visibilitySchedules = visibilitySchedules;
     }
-    
+
     /*
     // Mariana
     public void generateSchedule(){
@@ -125,6 +129,56 @@ public class Course {
                 ucs.add(uc);
             }
             return ucs;
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Error reading file", e);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Error parsing JSON", e);
+        }
+    }
+
+    public List<Shift> importTimeTable(Integer year, String path) {
+        File file = new File(path);
+        if (!file.exists() || file.isDirectory()) {
+            throw new IllegalArgumentException("File does not exist or is a directory");
+        }
+
+        List<Shift> shifts = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            JsonReader jsonReader = Json.createReader(br);
+            JsonArray jsonArray = jsonReader.readArray();
+            for(JsonObject jsonObject : jsonArray.getValuesAs(JsonObject.class)){
+                int id = jsonObject.getInt("id");
+                int idUC = jsonObject.getInt("uc");
+                String type = jsonObject.getString("type");
+                int roomCapacity = jsonObject.getInt("roomCapacity");
+                
+                List<TimeSlot> timeSlots = new ArrayList<>();
+
+                JsonArray slots = jsonObject.getJsonArray("slots");
+                int index = 0;
+                for (JsonObject slot : slots.getValuesAs(JsonObject.class)) {
+                    String day = slot.getString("day");
+                    DayOfWeek weekday = DayOfWeek.valueOf(day.toUpperCase());
+                    String start = slot.getString("start");
+                    String end = slot.getString("end");
+                    Time startTime = Time.valueOf(start + ":00");
+                    Time endTime = Time.valueOf(end + ":00");
+                    int uniqueId = id * 1000 + index;
+                    TimeSlot timeSlot = new TimeSlot(uniqueId, startTime, endTime, weekday, id);
+                    timeSlots.add(timeSlot);
+                }
+                
+                if(type.equals("T")){
+                    Theoretical theoretical = new Theoretical(id, roomCapacity, 0, idUC, timeSlots);
+                    shifts.add(theoretical);
+                } else {
+                    int capacity = jsonObject.getInt("capacity");
+                    TheoreticalPractical theoreticalPractical = new TheoreticalPractical(id, roomCapacity, 0, capacity, idUC, timeSlots);
+                    shifts.add(theoreticalPractical);
+                }
+            }
+            return shifts;
         } catch (IOException e) {
             throw new IllegalArgumentException("Error reading file", e);
         } catch (Exception e) {

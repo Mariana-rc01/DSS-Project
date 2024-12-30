@@ -24,4 +24,8 @@ public class TheoreticalPractical extends Shift{
     public boolean hasCapacity() {
         return enrolledCount < capacity && enrolledCount < capacityRoom;
     }
+
+    public int getCapacity() {
+        return capacity;
+    }
 }
