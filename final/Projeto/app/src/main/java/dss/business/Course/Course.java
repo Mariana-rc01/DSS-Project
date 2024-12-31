@@ -167,6 +167,7 @@ public class Course {
                     int uniqueId = id * 1000 + index;
                     TimeSlot timeSlot = new TimeSlot(uniqueId, startTime, endTime, weekday, id);
                     timeSlots.add(timeSlot);
+                    index++;
                 }
                 
                 if(type.equals("T")){

@@ -20,7 +20,7 @@ public class Main {
             System.out.println("Number of students: " + size); // Propósito de teste
 
             // Testar sendEmails
-            boolean b = facade.sendEmails(1);
+            /*boolean b = facade.sendEmails(1);
 
             // Testar registerSchedule
             Map<Integer, List<Integer>> schedule = new HashMap<>();
@@ -46,29 +46,9 @@ public class Main {
             }
 
             List<Integer> studentsConflicts = facade.getStudentsWithScheduleConflicts(1);
-            System.out.println("Estudantes com conflitos de horário: " + studentsConflicts);
-
-            try {
-                boolean resultI = facade.importStudents("../students.csv", 1);
-    
-                if (resultI) {
-                    System.out.println("Estudantes importados com sucesso!");
-                    Student s = facade.getStudent(112);
-                    System.out.println("Estudante: " + s.getId());
-                    System.out.println("Estudante course: " + s.getCourse());
-                    System.out.println("Estudante ucs: " + s.getUCs());
-                    System.out.println("Estudante schedule: " + s.getSchedule());
-                    System.out.println("Estudante pass: " + s.getPassword());
-                    System.out.println("Estudante tipo: " + s.getType());
-                } else {
-                    System.out.println("Falha ao importar estudantes.");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            System.out.println("Estudantes com conflitos de horário: " + studentsConflicts);*/
 
             // Testar importUCs
-
             try {
                 facade.importUCs("../ucs.json", 1);
             } catch (Exception e) {
@@ -82,6 +62,28 @@ public class Main {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            try {
+                boolean resultI = facade.importStudents("../students.csv", 1);
+    
+                if (resultI) {
+                    System.out.println("Estudantes importados com sucesso!");
+                    Student s = facade.getStudent(200206);
+                    System.out.println("Estudante: " + s.getId());
+                    System.out.println("Estudante course: " + s.getCourse());
+                    System.out.println("Estudante ucs: " + s.getUCs());
+                    System.out.println("Estudante schedule: " + s.getSchedule());
+                    System.out.println("Estudante pass: " + s.getPassword());
+                    System.out.println("Estudante tipo: " + s.getType());
+                } else {
+                    System.out.println("Falha ao importar estudantes.");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            size = studentDAO.size();
+            System.out.println("Number of students: " + size); // Propósito de teste
 
             TextUI ui = new TextUI();
             ui.run();

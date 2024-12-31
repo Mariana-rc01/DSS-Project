@@ -1,15 +1,120 @@
 [
     {
+        "id": 1,
+        "name": "Programação Funcional",
+        "year": 1,
+        "semester": 1,
+        "policy": ""
+    },
+    {
+        "id": 2,
+        "name": "Cálculo para Engenharia",
+        "year": 1,
+        "semester": 1,
+        "policy": ""
+    },
+    {
+        "id": 3,
+        "name": "Tópicos de Matemática Discreta",
+        "year": 1,
+        "semester": 1,
+        "policy": ""
+    },
+    {
         "id": 4,
-        "name": "Álgebra Linear",
+        "name": "Laboratórios de Informática I",
         "year": 1,
         "semester": 1,
         "policy": ""
     },
     {
         "id": 5,
-        "name": "Tópicos de Matemática Discreta",
+        "name": "Álgebra Linear para Engenharia",
         "year": 1,
+        "semester": 1,
+        "policy": ""
+    },
+    {
+        "id": 6,
+        "name": "Estatística Aplicada",
+        "year": 2,
+        "semester": 1,
+        "policy": ""
+    },
+    {
+        "id": 7,
+        "name": "Física Moderna",
+        "year": 2,
+        "semester": 1,
+        "policy": ""
+    },
+    {
+        "id": 8,
+        "name": "Fundamentos de Comunicação de Dados",
+        "year": 2,
+        "semester": 1,
+        "policy": ""
+    },
+    {
+        "id": 9,
+        "name": "Algoritmos e Complexidade",
+        "year": 2,
+        "semester": 1,
+        "policy": ""
+    },
+    {
+        "id": 10,
+        "name": "Arquitetura de Computadores",
+        "year": 2,
+        "semester": 1,
+        "policy": ""
+    },
+    {
+        "id": 11,
+        "name": "Laboratórios de Informática III",
+        "year": 2,
+        "semester": 1,
+        "policy": ""
+    },
+    {
+        "id": 12,
+        "name": "Inteligência Artificial",
+        "year": 3,
+        "semester": 1,
+        "policy": ""
+    },
+    {
+        "id": 13,
+        "name": "Desenvolvimento de Sistemas de Software",
+        "year": 3,
+        "semester": 1,
+        "policy": ""
+    },
+    {
+        "id": 14,
+        "name": "Sistemas Distribuídos",
+        "year": 3,
+        "semester": 1,
+        "policy": ""
+    },
+    {
+        "id": 15,
+        "name": "Comunicação por Computador",
+        "year": 3,
+        "semester": 1,
+        "policy": ""
+    },
+    {
+        "id": 16,
+        "name": "Cálculo de Programas",
+        "year": 3,
+        "semester": 1,
+        "policy": ""
+    },
+    {
+        "id": 17,
+        "name": "Laboratórios de Informática IV",
+        "year": 3,
         "semester": 1,
         "policy": ""
     }
