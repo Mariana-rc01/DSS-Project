@@ -1,0 +1,478 @@
+[
+    {
+        "id": 1,
+        "year": 1,
+        "no_conflicts": 0,
+        "schedule": [
+            {
+                "uc": 1,
+                "shift": 1,
+                "timeslot": 1
+            },
+            {
+                "uc": 2,
+                "shift": 5,
+                "timeslot": 5
+            },
+            {
+                "uc": 3,
+                "shift": 12,
+                "timeslot": 12
+            },
+            {
+                "uc": 2,
+                "shift": 8,
+                "timeslot": 8
+            },
+            {
+                "uc": 1,
+                "shift": 4,
+                "timeslot": 4
+            },
+            {
+                "uc": 3,
+                "shift": 9,
+                "timeslot": 9
+            },
+            {
+                "uc": 5,
+                "shift": 16,
+                "timeslot": 16
+            },
+            {
+                "uc": 5,
+                "shift": 19,
+                "timeslot": 19
+            },
+            {
+                "uc": 4,
+                "shift": 15,
+                "timeslot": 15
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "year": 1,
+        "no_conflicts": 0,
+        "schedule": [
+            {
+                "uc": 3,
+                "shift": 12,
+                "timeslot": 12
+            },
+            {
+                "uc": 2,
+                "shift": 8,
+                "timeslot": 8
+            },
+            {
+                "uc": 4,
+                "shift": 14,
+                "timeslot": 14
+            },
+            {
+                "uc": 1,
+                "shift": 4,
+                "timeslot": 4
+            },
+            {
+                "uc": 2,
+                "shift": 6,
+                "timeslot": 6
+            },
+            {
+                "uc": 3,
+                "shift": 10,
+                "timeslot": 10
+            },
+            {
+                "uc": 5,
+                "shift": 17,
+                "timeslot": 17
+            },
+            {
+                "uc": 5,
+                "shift": 19,
+                "timeslot": 19
+            },
+            {
+                "uc": 1,
+                "shift": 3,
+                "timeslot": 3
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "year": 1,
+        "no_conflicts": 2,
+        "schedule": [
+            {
+                "uc": 3,
+                "shift": 12,
+                "timeslot": 12
+            },
+            {
+                "uc": 2,
+                "shift": 8,
+                "timeslot": 8
+            },
+            {
+                "uc": 4,
+                "shift": 13,
+                "timeslot": 13
+            },
+            {
+                "uc": 1,
+                "shift": 4,
+                "timeslot": 4
+            },
+            {
+                "uc": 5,
+                "shift": 18,
+                "timeslot": 18
+            },
+            {
+                "uc": 5,
+                "shift": 19,
+                "timeslot": 19
+            },
+            {
+                "uc": 3,
+                "shift": 11,
+                "timeslot": 11
+            },
+            {
+                "uc": 1,
+                "shift": 2,
+                "timeslot": 2
+            },
+            {
+                "uc": 2,
+                "shift": 7,
+                "timeslot": 7
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "year": 2,
+        "no_conflicts": 1,
+        "schedule": [
+            {
+                "uc": 6,
+                "shift": 20,
+                "timeslot": 20
+            },
+            {
+                "uc": 7,
+                "shift": 26,
+                "timeslot": 26
+            },
+            {
+                "uc": 6,
+                "shift": 23,
+                "timeslot": 23
+            },
+            {
+                "uc": 9,
+                "shift": 35,
+                "timeslot": 35
+            },
+            {
+                "uc": 9,
+                "shift": 32,
+                "timeslot": 32
+            },
+            {
+                "uc": 8,
+                "shift": 31,
+                "timeslot": 31
+            },
+            {
+                "uc": 8,
+                "shift": 30,
+                "timeslot": 30
+            },
+            {
+                "uc": 10,
+                "shift": 36,
+                "timeslot": 36
+            },
+            {
+                "uc": 7,
+                "shift": 27,
+                "timeslot": 27
+            },
+            {
+                "uc": 10,
+                "shift": 39,
+                "timeslot": 39
+            },
+            {
+                "uc": 11,
+                "shift": 40,
+                "timeslot": 40
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "year": 2,
+        "no_conflicts": 0,
+        "schedule": [
+            {
+                "uc": 6,
+                "shift": 21,
+                "timeslot": 21
+            },
+            {
+                "uc": 6,
+                "shift": 23,
+                "timeslot": 23
+            },
+            {
+                "uc": 8,
+                "shift": 29,
+                "timeslot": 29
+            },
+            {
+                "uc": 9,
+                "shift": 35,
+                "timeslot": 35
+            },
+            {
+                "uc": 8,
+                "shift": 31,
+                "timeslot": 31
+            },
+            {
+                "uc": 10,
+                "shift": 37,
+                "timeslot": 37
+            },
+            {
+                "uc": 7,
+                "shift": 24,
+                "timeslot": 24
+            },
+            {
+                "uc": 9,
+                "shift": 33,
+                "timeslot": 33
+            },
+            {
+                "uc": 11,
+                "shift": 41,
+                "timeslot": 41
+            },
+            {
+                "uc": 7,
+                "shift": 27,
+                "timeslot": 27
+            },
+            {
+                "uc": 10,
+                "shift": 39,
+                "timeslot": 39
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "year": 2,
+        "no_conflicts": 3,
+        "schedule": [
+            {
+                "uc": 11,
+                "shift": 42,
+                "timeslot": 42
+            },
+            {
+                "uc": 6,
+                "shift": 23,
+                "timeslot": 23
+            },
+            {
+                "uc": 9,
+                "shift": 35,
+                "timeslot": 35
+            },
+            {
+                "uc": 8,
+                "shift": 31,
+                "timeslot": 31
+            },
+            {
+                "uc": 6,
+                "shift": 22,
+                "timeslot": 22
+            },
+            {
+                "uc": 7,
+                "shift": 25,
+                "timeslot": 25
+            },
+            {
+                "uc": 8,
+                "shift": 28,
+                "timeslot": 28
+            },
+            {
+                "uc": 9,
+                "shift": 34,
+                "timeslot": 34
+            },
+            {
+                "uc": 7,
+                "shift": 27,
+                "timeslot": 27
+            },
+            {
+                "uc": 10,
+                "shift": 39,
+                "timeslot": 39
+            },
+            {
+                "uc": 10,
+                "shift": 38,
+                "timeslot": 38
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "year": 3,
+        "no_conflicts": 2,
+        "schedule": [
+            {
+                "uc": 12,
+                "shift": 43,
+                "timeslot": 43
+            },
+            {
+                "uc": 12,
+                "shift": 45,
+                "timeslot": 45
+            },
+            {
+                "uc": 16,
+                "shift": 55,
+                "timeslot": 55
+            },
+            {
+                "uc": 14,
+                "shift": 49,
+                "timeslot": 49
+            },
+            {
+                "uc": 13,
+                "shift": 46,
+                "timeslot": 46
+            },
+            {
+                "uc": 14,
+                "shift": 51,
+                "timeslot": 51
+            },
+            {
+                "uc": 17,
+                "shift": 58,
+                "timeslot": 58
+            },
+            {
+                "uc": 13,
+                "shift": 48,
+                "timeslot": 48
+            },
+            {
+                "uc": 17,
+                "shift": 60,
+                "timeslot": 60
+            },
+            {
+                "uc": 15,
+                "shift": 54,
+                "timeslot": 54
+            },
+            {
+                "uc": 16,
+                "shift": 57,
+                "timeslot": 57
+            },
+            {
+                "uc": 15,
+                "shift": 52,
+                "timeslot": 52
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "year": 3,
+        "no_conflicts": 0,
+        "schedule": [
+            {
+                "uc": 13,
+                "shift": 47,
+                "timeslot": 47
+            },
+            {
+                "uc": 12,
+                "shift": 45,
+                "timeslot": 45
+            },
+            {
+                "uc": 12,
+                "shift": 44,
+                "timeslot": 44
+            },
+            {
+                "uc": 14,
+                "shift": 50,
+                "timeslot": 50
+            },
+            {
+                "uc": 17,
+                "shift": 59,
+                "timeslot": 59
+            },
+            {
+                "uc": 14,
+                "shift": 51,
+                "timeslot": 51
+            },
+            {
+                "uc": 16,
+                "shift": 56,
+                "timeslot": 56
+            },
+            {
+                "uc": 13,
+                "shift": 48,
+                "timeslot": 48
+            },
+            {
+                "uc": 17,
+                "shift": 60,
+                "timeslot": 60
+            },
+            {
+                "uc": 15,
+                "shift": 53,
+                "timeslot": 53
+            },
+            {
+                "uc": 15,
+                "shift": 54,
+                "timeslot": 54
+            },
+            {
+                "uc": 16,
+                "shift": 57,
+                "timeslot": 57
+            }
+        ]
+    }
+]

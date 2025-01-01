@@ -66,6 +66,10 @@ public class Shift {
         this.timeSlots = timeSlots;
     }
 
+    public void addStudent() {
+        this.enrolledCount++;
+    }
+
     public boolean hasCapacity() {
         return enrolledCount < capacityRoom;
     }

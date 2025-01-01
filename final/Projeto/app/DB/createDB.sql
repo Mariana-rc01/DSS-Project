@@ -5,10 +5,11 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema dss
 -- -----------------------------------------------------
+
+DROP DATABASE `dss`;
+
 CREATE SCHEMA IF NOT EXISTS `dss` ;
 USE `dss` ;
-
--- DROP DATABASE `dss`;
 -- -----------------------------------------------------
 -- Table `dss`.`students`
 -- -----------------------------------------------------
@@ -127,6 +128,28 @@ CREATE TABLE IF NOT EXISTS `dss`.`student_schedule` (
     FOREIGN KEY (shift_id) REFERENCES shifts(id)
 );
 
+-- -----------------------------------------------------
+-- Table `dss`.`predefined_schedule`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dss`.`schedules` (
+    id INT PRIMARY KEY,
+    course INT NOT NULL,
+    year INT NOT NULL,
+    no_conflicts INT NOT NULL,
+    FOREIGN KEY (course) REFERENCES courses(id)
+);
+
+CREATE TABLE IF NOT EXISTS `dss`.`predefined_schedule` (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    idSchedule INT NOT NULL,
+    uc_id INT NOT NULL,
+    shift_id INT NOT NULL,
+    timeslot_id INT NOT NULL,
+    FOREIGN KEY (idSchedule) REFERENCES schedules(id),
+    FOREIGN KEY (uc_id) REFERENCES ucs(id),
+    FOREIGN KEY (shift_id) REFERENCES shifts(id),
+    FOREIGN KEY (timeslot_id) REFERENCES timeslots(id)
+);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

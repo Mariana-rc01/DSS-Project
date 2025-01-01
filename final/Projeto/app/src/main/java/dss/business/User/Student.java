@@ -224,4 +224,20 @@ public class Student {
         }
     }
 
+    public List<Integer> getYearsWithUCs(Map<Integer, List<Integer>> ucsByYear) {
+        List<Integer> years = new ArrayList<>();
+        for (Map.Entry<Integer, List<Integer>> entry : ucsByYear.entrySet()) {
+            int year = entry.getKey();
+            List<Integer> ucsInYear = entry.getValue();
+    
+            for (int ucId : this.getUCs()) {
+                if (ucsInYear.contains(ucId)) {
+                    years.add(year);
+                    break;
+                }
+            }
+        }
+        return years;
+    }
+
 }

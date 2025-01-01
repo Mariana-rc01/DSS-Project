@@ -23,10 +23,10 @@ public class GesScheduleFacade implements ISchedule {
         try {
             List<Student> studentss = this.students.getStudentsByCourse(idCourse);
 
-            List<Shift> shifts = this.courses.getShiftsByCourse(idCourse);
+            Map<Integer,Shift> shifts = this.courses.getShiftsByCourse(idCourse);
 
             for (Student student : studentss) {
-                if (student.hasScheduleConflict(shifts)) {
+                if (student.hasScheduleConflict(new ArrayList<>(shifts.values()))) {
                     studentsWithScheduleConflicts.add(student.getId());
                 }
             }
@@ -40,9 +40,32 @@ public class GesScheduleFacade implements ISchedule {
         return false;
     }
 
-    // Mariana
     public void generateSchedule (int idCourse) {
-        
+        try {
+
+            Course course = courses.getCourse(idCourse);
+            if (course == null) {
+                return;
+            }
+
+            List<Student> studentss = students.getStudentsByCourse(idCourse);
+            if (studentss == null) {
+                return;
+            }
+
+            Map<Integer,Shift> shifts = courses.getShiftsByCourse(idCourse);
+
+            Map<Integer,List<Integer>> ucsByYear = courses.getUcsByYearForCourse(idCourse);
+
+            Map<Integer,PreDefinedSchedule> schedules = courses.getPreDefinedScheduleByCourse(idCourse);
+
+            course.generateSchedule(studentss, shifts, ucsByYear, schedules);
+
+            courses.updateStudentsSchedules(studentss);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Student> getStudentsWithoutSchedule (int idCourse) {
@@ -145,6 +168,30 @@ public class GesScheduleFacade implements ISchedule {
 
             return true;
             
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean importSchedulesPreDefined(int idCourse, String path) {
+        try {
+            Course course = courses.getCourse(idCourse);
+            if (course == null) {
+                return false;
+            }
+
+            List<PreDefinedSchedule> schedules = course.importSchedulesPreDefined(path);
+            if (schedules == null) {
+                return false;
+            }
+
+            for (PreDefinedSchedule schedule : schedules) {
+                courses.addPreDefinedScheduleToCourse(idCourse, schedule.getId(), schedule.getYear(), schedule.getNoConflicts(), schedule.getSchedule());
+            }
+
+            return true;
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;

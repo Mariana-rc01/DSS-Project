@@ -7,54 +7,35 @@
         "capacity": 35,
         "slots": [
             {
+                "id": 1,
                 "day": "monday",
                 "start": "09:00",
                 "end": "11:00"
-            },
-            {
-                "day": "friday",
-                "start": "09:00",
-                "end": "11:00"
-            },
-            {
-                "day": "friday",
-                "start": "11:00",
-                "end": "13:00"
-            }
-        ]
+            }]
     },
     {
         "id": 2,
         "uc": 1,
-        "roomCapacity": 125,
-        "type": "T",
-        "slots": [
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [        
             {
-                "day": "wednesday",
+                "id": 2,
+                "day": "friday",
                 "start": "09:00",
                 "end": "11:00"
-            }
-        ]
+            }]
     },
-
     {
         "id": 3,
-        "uc": 2,
+        "uc": 1,
         "roomCapacity": 45,
         "type": "TP",
         "capacity": 35,
         "slots": [
             {
-                "day": "monday",
-                "start": "11:00",
-                "end": "13:00"
-            },
-            {
-                "day": "wednesday",
-                "start": "11:00",
-                "end": "13:00"
-            },
-            {
+                "id": 3,
                 "day": "friday",
                 "start": "11:00",
                 "end": "13:00"
@@ -63,12 +44,13 @@
     },
     {
         "id": 4,
-        "uc": 2,
-        "roomCapacity": 120,
+        "uc": 1,
+        "roomCapacity": 125,
         "type": "T",
         "slots": [
             {
-                "day": "tuesday",
+                "id": 4,
+                "day": "wednesday",
                 "start": "09:00",
                 "end": "11:00"
             }
@@ -77,61 +59,58 @@
 
     {
         "id": 5,
-        "uc": 3,
+        "uc": 2,
         "roomCapacity": 45,
         "type": "TP",
         "capacity": 35,
         "slots": [
             {
-                "day": "wednesday",
+                "id": 5,
+                "day": "monday",
                 "start": "11:00",
                 "end": "13:00"
-            },
-            {
-                "day": "wednesday",
-                "start": "14:00",
-                "end": "16:00"
-            },
-            {
-                "day": "thursday",
-                "start": "16:00",
-                "end": "18:00"
             }
         ]
     },
     {
         "id": 6,
-        "uc": 3,
-        "roomCapacity": 125,
-        "type": "T",
-        "slots": [
-            {
-                "day": "monday",
-                "start": "16:00",
-                "end": "18:00"
-            }
-        ]
-    },
-
-    {
-        "id": 7,
-        "uc": 4,
+        "uc": 2,
         "roomCapacity": 45,
         "type": "TP",
         "capacity": 35,
         "slots": [
             {
-                "day": "tuesday",
+                "id": 6,
+                "day": "wednesday",
                 "start": "11:00",
                 "end": "13:00"
-            },
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "uc": 2,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
             {
-                "day": "tuesday",
-                "start": "14:00",
-                "end": "16:00"
-            },
-            {
+                "id": 7,
                 "day": "friday",
+                "start": "11:00",
+                "end": "13:00"
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "uc": 2,
+        "roomCapacity": 120,
+        "type": "T",
+        "slots": [
+            {
+                "id": 8,
+                "day": "tuesday",
                 "start": "09:00",
                 "end": "11:00"
             }
@@ -140,22 +119,13 @@
 
     {
         "id": 9,
-        "uc": 5,
+        "uc": 3,
         "roomCapacity": 45,
         "type": "TP",
         "capacity": 35,
         "slots": [
             {
-                "day": "thursday",
-                "start": "09:00",
-                "end": "11:00"
-            },
-            {
-                "day": "friday",
-                "start": "09:00",
-                "end": "11:00"
-            },
-            {
+                "id": 9,
                 "day": "wednesday",
                 "start": "11:00",
                 "end": "13:00"
@@ -164,75 +134,59 @@
     },
     {
         "id": 10,
-        "uc": 5,
-        "roomCapacity": 125,
-        "type": "T",
-        "slots": [
-            {
-                "day": "thursday",
-                "start": "11:00",
-                "end": "13:00"
-            }
-        ]
-    },
-
-    {
-        "id": 11,
-        "uc": 6,
+        "uc": 3,
         "roomCapacity": 45,
         "type": "TP",
         "capacity": 35,
         "slots": [
             {
-                "day": "monday",
-                "start": "09:00",
-                "end": "11:00"
-            },
-            {
-                "day": "monday",
-                "start": "11:00",
-                "end": "13:00"
-            },
-            {
+                "id": 10,
                 "day": "wednesday",
-                "start": "09:00",
-                "end": "11:00"
+                "start": "14:00",
+                "end": "16:00"
+            }
+        ]
+    },
+    {
+        "id": 11,
+        "uc": 3,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 11,
+                "day": "thursday",
+                "start": "16:00",
+                "end": "18:00"
             }
         ]
     },
     {
         "id": 12,
-        "uc": 6,
+        "uc": 3,
         "roomCapacity": 125,
         "type": "T",
         "slots": [
             {
+                "id": 12,
                 "day": "monday",
-                "start": "14:00",
-                "end": "16:00"
+                "start": "16:00",
+                "end": "18:00"
             }
         ]
     },
 
     {
         "id": 13,
-        "uc": 7,
+        "uc": 4,
         "roomCapacity": 45,
         "type": "TP",
         "capacity": 35,
         "slots": [
             {
-                "day": "thursday",
-                "start": "09:00",
-                "end": "11:00"
-            },
-            {
-                "day": "wednesday",
-                "start": "11:00",
-                "end": "13:00"
-            },
-            {
-                "day": "monday",
+                "id": 13,
+                "day": "tuesday",
                 "start": "11:00",
                 "end": "13:00"
             }
@@ -240,204 +194,180 @@
     },
     {
         "id": 14,
-        "uc": 7,
-        "roomCapacity": 125,
-        "type": "T",
-        "slots": [
-            {
-                "day": "thursday",
-                "start": "18:00",
-                "end": "20:00"
-            }
-        ]
-    },
-
-    {
-        "id": 15,
-        "uc": 8,
+        "uc": 4,
         "roomCapacity": 45,
         "type": "TP",
         "capacity": 35,
         "slots": [
             {
-                "day": "thursday",
-                "start": "09:00",
-                "end": "11:00"
-            },
-            {
-                "day": "monday",
-                "start": "16:00",
-                "end": "18:00"
-            },
-            {
-                "day": "wednesday",
+                "id": 14,
+                "day": "tuesday",
                 "start": "14:00",
                 "end": "16:00"
             }
         ]
     },
     {
-        "id": 16,
-        "uc": 8,
-        "roomCapacity": 125,
-        "type": "T",
-        "slots": [
-            {
-                "day": "tuesday",
-                "start": "18:00",
-                "end": "20:00"
-            }
-        ]
-    },
-
-    {
-        "id": 17,
-        "uc": 9,
+        "id": 15,
+        "uc": 4,
         "roomCapacity": 45,
         "type": "TP",
         "capacity": 35,
         "slots": [
             {
-                "day": "tuesday",
-                "start": "16:00",
-                "end": "18:00"
-            },
+                "id": 15,
+                "day": "friday",
+                "start": "09:00",
+                "end": "11:00"
+            }
+        ]
+    },
+
+    {
+        "id": 16,
+        "uc": 5,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
             {
+                "id": 16,
                 "day": "thursday",
-                "start": "13:00",
-                "end": "15:00"
-            },
+                "start": "09:00",
+                "end": "11:00"
+            }
+        ]
+    },
+    {
+        "id": 17,
+        "uc": 5,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
             {
-                "day": "thursday",
-                "start": "13:30",
-                "end": "15:30"
+                "id": 17,
+                "day": "friday",
+                "start": "09:00",
+                "end": "11:00"
             }
         ]
     },
     {
         "id": 18,
-        "uc": 9,
-        "roomCapacity": 125,
-        "type": "T",
+        "uc": 5,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
         "slots": [
             {
-                "day": "tuesday",
-                "start": "13:00",
-                "end": "15:00"
+                "id": 18,
+                "day": "wednesday",
+                "start": "11:00",
+                "end": "13:00"
             }
         ]
     },
-
     {
         "id": 19,
-        "uc": 10,
-        "roomCapacity": 45,
-        "type": "TP",
-        "capacity": 35,
-        "slots": [
-            {
-                "day": "thursday",
-                "start": "14:00",
-                "end": "16:00"
-            },
-            {
-                "day": "wednesday",
-                "start": "14:00",
-                "end": "16:00"
-            },
-            {
-                "day": "friday",
-                "start": "16:30",
-                "end": "18:30"
-            }
-        ]
-    },
-    {
-        "id": 20,
-        "uc": 10,
+        "uc": 5,
         "roomCapacity": 125,
         "type": "T",
         "slots": [
             {
-                "day": "friday",
-                "start": "14:00",
-                "end": "16:00"
+                "id": 19,
+                "day": "thursday",
+                "start": "11:00",
+                "end": "13:00"
             }
         ]
     },
 
     {
-        "id": 21,
-        "uc": 11,
+        "id": 20,
+        "uc": 6,
         "roomCapacity": 45,
         "type": "TP",
         "capacity": 35,
         "slots": [
             {
-                "day": "friday",
-                "start": "17:00",
-                "end": "19:00"
-            },
-            {
-                "day": "thursday",
-                "start": "16:00",
-                "end": "18:00"
-            },
-            {
+                "id": 20,
                 "day": "monday",
                 "start": "09:00",
                 "end": "11:00"
             }
         ]
     },
-
     {
-        "id": 23,
-        "uc": 12,
+        "id": 21,
+        "uc": 6,
         "roomCapacity": 45,
         "type": "TP",
         "capacity": 35,
         "slots": [
             {
+                "id": 21,
                 "day": "monday",
                 "start": "11:00",
                 "end": "13:00"
-            },
+            }
+        ]
+    },
+    {
+        "id": 22,
+        "uc": 6,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
             {
+                "id": 22,
+                "day": "wednesday",
+                "start": "09:00",
+                "end": "11:00"
+            }
+        ]
+    },
+    {
+        "id": 23,
+        "uc": 6,
+        "roomCapacity": 125,
+        "type": "T",
+        "slots": [
+            {
+                "id": 23,
                 "day": "monday",
                 "start": "14:00",
                 "end": "16:00"
             }
         ]
     },
-    {
-        "id": 24,
-        "uc": 12,
-        "roomCapacity": 125,
-        "type": "T",
-        "slots": [
-            {
-                "day": "monday",
-                "start": "16:00",
-                "end": "18:00"
-            }
-        ]
-    },
 
     {
-        "id": 25,
-        "uc": 13,
+        "id": 24,
+        "uc": 7,
         "roomCapacity": 45,
         "type": "TP",
         "capacity": 35,
         "slots": [
             {
-                "day": "tuesday",
-                "start": "11:00",
-                "end": "13:00"
-            },
+                "id": 24,
+                "day": "thursday",
+                "start": "09:00",
+                "end": "11:00"
+            }
+        ]
+    },
+    {
+        "id": 25,
+        "uc": 7,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
             {
-                "day": "monday",
+                "id": 25,
+                "day": "wednesday",
                 "start": "11:00",
                 "end": "13:00"
             }
@@ -445,11 +375,343 @@
     },
     {
         "id": 26,
+        "uc": 7,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 26,
+                "day": "monday",
+                "start": "11:00",
+                "end": "13:00"
+            }
+        ]
+    },
+    {
+        "id": 27,
+        "uc": 7,
+        "roomCapacity": 125,
+        "type": "T",
+        "slots": [
+            {
+                "id": 27,
+                "day": "thursday",
+                "start": "18:00",
+                "end": "20:00"
+            }
+        ]
+    },
+
+    {
+        "id": 28,
+        "uc": 8,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 28,
+                "day": "thursday",
+                "start": "09:00",
+                "end": "11:00"
+            }
+        ]
+    },
+    {
+        "id": 29,
+        "uc": 8,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 29,
+                "day": "monday",
+                "start": "16:00",
+                "end": "18:00"
+            }
+        ]
+    },
+    {
+        "id": 30,
+        "uc": 8,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 30,
+                "day": "wednesday",
+                "start": "14:00",
+                "end": "16:00"
+            }
+        ]
+    },
+    {
+        "id": 31,
+        "uc": 8,
+        "roomCapacity": 125,
+        "type": "T",
+        "slots": [
+            {
+                "id": 31,
+                "day": "tuesday",
+                "start": "18:00",
+                "end": "20:00"
+            }
+        ]
+    },
+
+    {
+        "id": 32,
+        "uc": 9,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 32,
+                "day": "tuesday",
+                "start": "16:00",
+                "end": "18:00"
+            }
+        ]
+    },
+    {
+        "id": 33,
+        "uc": 9,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 33,
+                "day": "thursday",
+                "start": "13:00",
+                "end": "15:00"
+            }
+        ]
+    },
+    {
+        "id": 34,
+        "uc": 9,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 34,
+                "day": "thursday",
+                "start": "13:30",
+                "end": "15:30"
+            }
+        ]
+    },
+    {
+        "id": 35,
+        "uc": 9,
+        "roomCapacity": 125,
+        "type": "T",
+        "slots": [
+            {
+                "id": 35,
+                "day": "tuesday",
+                "start": "13:00",
+                "end": "15:00"
+            }
+        ]
+    },
+
+    {
+        "id": 36,
+        "uc": 10,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 36,
+                "day": "thursday",
+                "start": "14:00",
+                "end": "16:00"
+            }
+        ]
+    },
+    {
+        "id": 37,
+        "uc": 10,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 37,
+                "day": "wednesday",
+                "start": "14:00",
+                "end": "16:00"
+            }
+        ]
+    },
+    {
+        "id": 38,
+        "uc": 10,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 38,
+                "day": "friday",
+                "start": "16:30",
+                "end": "18:30"
+            }
+        ]
+    },
+    {
+        "id": 39,
+        "uc": 10,
+        "roomCapacity": 125,
+        "type": "T",
+        "slots": [
+            {
+                "id": 39,
+                "day": "friday",
+                "start": "14:00",
+                "end": "16:00"
+            }
+        ]
+    },
+
+    {
+        "id": 40,
+        "uc": 11,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 40,
+                "day": "friday",
+                "start": "17:00",
+                "end": "19:00"
+            }
+        ]
+    },
+    {
+        "id": 41,
+        "uc": 11,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 41,
+                "day": "thursday",
+                "start": "16:00",
+                "end": "18:00"
+            }
+        ]
+    },
+    {
+        "id": 42,
+        "uc": 11,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 42,
+                "day": "monday",
+                "start": "09:00",
+                "end": "11:00"
+            }
+        ]
+    },
+
+    {
+        "id": 43,
+        "uc": 12,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 43,
+                "day": "monday",
+                "start": "11:00",
+                "end": "13:00"
+            }
+        ]
+    },
+    {
+        "id": 44,
+        "uc": 12,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 44,
+                "day": "monday",
+                "start": "14:00",
+                "end": "16:00"
+            }
+        ]
+    },
+    {
+        "id": 45,
+        "uc": 12,
+        "roomCapacity": 125,
+        "type": "T",
+        "slots": [
+            {
+                "id": 45,
+                "day": "monday",
+                "start": "16:00",
+                "end": "18:00"
+            }
+        ]
+    },
+
+    {
+        "id": 46,
+        "uc": 13,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 46,
+                "day": "tuesday",
+                "start": "11:00",
+                "end": "13:00"
+            }
+        ]
+    },
+    {
+        "id": 47,
+        "uc": 13,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
+            {
+                "id": 47,
+                "day": "monday",
+                "start": "11:00",
+                "end": "13:00"
+            }
+        ]
+    },
+    {
+        "id": 48,
         "uc": 13,
         "roomCapacity": 125,
         "type": "T",
         "slots": [
             {
+                "id": 48,
                 "day": "wednesday",
                 "start": "15:30",
                 "end": "17:30"
@@ -458,18 +720,29 @@
     },
 
     {
-        "id": 27,
+        "id": 49,
         "uc": 14,
         "roomCapacity": 45,
         "type": "TP",
         "capacity": 35,
         "slots": [
             {
+                "id": 49,
                 "day": "tuesday",
                 "start": "09:00",
                 "end": "11:00"
-            },
+            }
+        ]
+    },
+    {
+        "id": 50,
+        "uc": 14,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
             {
+                "id": 50,
                 "day": "tuesday",
                 "start": "11:00",
                 "end": "13:00"
@@ -477,12 +750,13 @@
         ]
     },
     {
-        "id": 28,
+        "id": 51,
         "uc": 14,
         "roomCapacity": 125,
         "type": "T",
         "slots": [
             {
+                "id": 51,
                 "day": "tuesday",
                 "start": "16:00",
                 "end": "18:00"
@@ -491,18 +765,29 @@
     },
 
     {
-        "id": 29,
+        "id": 52,
         "uc": 15,
         "roomCapacity": 45,
         "type": "TP",
         "capacity": 35,
         "slots": [
             {
+                "id": 52,
                 "day": "friday",
                 "start": "11:00",
                 "end": "13:00"
-            },
+            }
+        ]
+    },
+    {
+        "id": 53,
+        "uc": 15,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
             {
+                "id": 53,
                 "day": "thursday",
                 "start": "11:00",
                 "end": "13:00"
@@ -510,12 +795,13 @@
         ]
     },
     {
-        "id": 30,
+        "id": 54,
         "uc": 15,
         "roomCapacity": 125,
         "type": "T",
         "slots": [
             {
+                "id": 54,
                 "day": "thursday",
                 "start": "16:00",
                 "end": "18:00"
@@ -524,18 +810,29 @@
     },
 
     {
-        "id": 31,
+        "id": 55,
         "uc": 16,
         "roomCapacity": 45,
         "type": "TP",
         "capacity": 35,
         "slots": [
             {
+                "id": 55,
                 "day": "monday",
                 "start": "18:00",
                 "end": "20:00"
-            },
+            }
+        ]
+    },
+    {
+        "id": 56,
+        "uc": 16,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 35,
+        "slots": [
             {
+                "id": 56,
                 "day": "wednesday",
                 "start": "09:00",
                 "end": "11:00"
@@ -543,12 +840,13 @@
         ]
     },
     {
-        "id": 32,
+        "id": 57,
         "uc": 16,
         "roomCapacity": 125,
         "type": "T",
         "slots": [
             {
+                "id": 57,
                 "day": "friday",
                 "start": "09:00",
                 "end": "11:00"
@@ -557,18 +855,29 @@
     },
 
     {
-        "id": 33,
+        "id": 58,
         "uc": 17,
         "roomCapacity": 45,
         "type": "TP",
-        "capacity": 35,
+        "capacity": 45,
         "slots": [
             {
+                "id": 58,
                 "day": "wednesday",
                 "start": "14:30",
                 "end": "15:30"
-            },
+            }
+        ]
+    },
+    {
+        "id": 59,
+        "uc": 17,
+        "roomCapacity": 45,
+        "type": "TP",
+        "capacity": 45,
+        "slots": [
             {
+                "id": 59,
                 "day": "tuesday",
                 "start": "15:00",
                 "end": "16:00"
@@ -576,12 +885,13 @@
         ]
     },
     {
-        "id": 34,
+        "id": 60,
         "uc": 17,
         "roomCapacity": 125,
         "type": "T",
         "slots": [
             {
+                "id": 60,
                 "day": "wednesday",
                 "start": "17:30",
                 "end": "19:30"

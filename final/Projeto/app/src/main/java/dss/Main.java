@@ -8,7 +8,7 @@ import java.util.Map;
 import dss.business.LNFacade;
 import dss.business.User.Student;
 import dss.ui.TextUI;
-import dss.data.StudentDAO; // Propósito de teste
+import dss.data.StudentDAO;
 
 public class Main {
 
@@ -84,6 +84,13 @@ public class Main {
 
             size = studentDAO.size();
             System.out.println("Number of students: " + size); // Propósito de teste
+
+            facade.importSchedulesPreDefined(1, "../schedules.json");
+
+            facade.generateSchedule(1);
+
+            List<Integer> studentsConflicts = facade.getStudentsWithScheduleConflicts(1);
+            System.out.println("Estudantes com conflitos de horário: " + studentsConflicts);
 
             TextUI ui = new TextUI();
             ui.run();

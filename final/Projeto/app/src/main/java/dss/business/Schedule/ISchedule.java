@@ -26,4 +26,5 @@ public interface ISchedule {
 
     public boolean registerSchedule (int idStudent, Map<Integer, List<Integer>> schedule);
 
+    public boolean importSchedulesPreDefined (int idCourse, String path);
 }

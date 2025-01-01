@@ -3,13 +3,16 @@ package dss.data;
 import java.sql.*;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dss.business.Course.Course;
 import dss.business.Course.Shift;
 import dss.business.Course.Theoretical;
 import dss.business.Course.TheoreticalPractical;
 import dss.business.Course.TimeSlot;
+import dss.business.Schedule.PreDefinedSchedule;
 import dss.business.User.AthleteStudent;
 import dss.business.User.EmployedStudent;
 import dss.business.User.Student;
@@ -79,8 +82,8 @@ public class CourseDAO {
         }
     }
 
-    public List<Shift> getShiftsByCourse(int idCourse) throws Exception {
-        List<Shift> shifts = new ArrayList<>();
+    public Map<Integer,Shift> getShiftsByCourse(int idCourse) throws Exception {
+        Map<Integer, Shift> shifts = new HashMap<>();
         UCDAO ucDAO = new UCDAO();
         String query = "SELECT s.* FROM shifts s INNER JOIN ucs u ON s.uc = u.id WHERE u.course = ?";
 
@@ -94,7 +97,7 @@ public class CourseDAO {
                 int ucId = rs.getInt("uc");
 
                 if (shiftType == 0) {
-                    shifts.add(new Theoretical(
+                    shifts.put(rs.getInt("id"), new Theoretical(
                             rs.getInt("id"),
                             rs.getInt("capacityRoom"),
                             rs.getInt("enrolledCount"),
@@ -102,7 +105,7 @@ public class CourseDAO {
                             timeSlots
                     ));
                 } else if (shiftType == 1) {
-                    shifts.add(new TheoreticalPractical(
+                    shifts.put(rs.getInt("id"), new TheoreticalPractical(
                             rs.getInt("id"),
                             rs.getInt("capacityRoom"),
                             rs.getInt("enrolledCount"),
@@ -111,7 +114,7 @@ public class CourseDAO {
                             timeSlots
                     ));
                 } else {
-                    shifts.add(new Shift(
+                    shifts.put(rs.getInt("id"), new Shift(
                             rs.getInt("id"),
                             rs.getInt("capacityRoom"),
                             rs.getInt("enrolledCount"),
@@ -203,6 +206,51 @@ public class CourseDAO {
         }
     }
 
+    public boolean addPreDefinedScheduleToCourse(int courseId, int scheduleId, int year, int no_conflicts, Map<Integer, Map<Integer, List<Integer>>> schedule) throws Exception {
+        // Inserir o schedule na tabela `schedules`
+        String scheduleInsertQuery = "INSERT INTO schedules (id, course, year, no_conflicts) VALUES (?, ?, ?, ?)";
+        
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement(scheduleInsertQuery)) {
+            stm.setInt(1, scheduleId);
+            stm.setInt(2, courseId);
+            stm.setInt(3, year);
+            stm.setInt(4, no_conflicts);
+            stm.executeUpdate();
+    
+            String predefinedScheduleInsertQuery = "INSERT INTO predefined_schedule (idSchedule, uc_id, shift_id, timeslot_id) VALUES (?, ?, ?, ?)";
+            
+            try (PreparedStatement stmPredefined = DAOConfig.connection.prepareStatement(predefinedScheduleInsertQuery)) {
+                for (Map.Entry<Integer, Map<Integer, List<Integer>>> ucEntry : schedule.entrySet()) {
+                    int ucId = ucEntry.getKey();
+                    Map<Integer, List<Integer>> shifts = ucEntry.getValue();
+                    
+                    for (Map.Entry<Integer, List<Integer>> shiftEntry : shifts.entrySet()) {
+                        int shiftId = shiftEntry.getKey();
+                        List<Integer> timeSlots = shiftEntry.getValue();
+    
+                        for (int timeSlotId : timeSlots) {
+                            stmPredefined.setInt(1, scheduleId);
+                            stmPredefined.setInt(2, ucId);
+                            stmPredefined.setInt(3, shiftId);
+                            stmPredefined.setInt(4, timeSlotId);
+                            stmPredefined.addBatch();
+                        }
+                    }
+                }
+    
+                stmPredefined.executeBatch();
+                return true;
+    
+            } catch (SQLException e) {
+                throw new Exception("Erro ao adicionar o horário pré-definido na tabela `predefined_schedule`: " + e.getMessage(), e);
+            }
+    
+        } catch (SQLException e) {
+            throw new Exception("Erro ao adicionar o horário na tabela `schedules`: " + e.getMessage(), e);
+        }
+    }
+
+
     private int getStudentType(Student student) {
         if (student instanceof AthleteStudent) {
             return 1;
@@ -211,5 +259,139 @@ public class CourseDAO {
         }
         return 0;
     }
-    
+
+    public Map<Integer, List<Integer>> getUcsByYearForCourse(int idCourse) throws SQLException {
+        String query = "SELECT year, id AS uc_id FROM ucs WHERE course = ?";
+        Map<Integer, List<Integer>> ucsByYear = new HashMap<>();
+
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement(query)) {
+            stm.setInt(1, idCourse);
+
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    int year = rs.getInt("year");
+                    int ucId = rs.getInt("uc_id");
+
+                    ucsByYear.computeIfAbsent(year, k -> new ArrayList<>()).add(ucId);
+                }
+            }
+        }
+
+        return ucsByYear;
+    }
+
+    public Map<Integer, PreDefinedSchedule> getPreDefinedScheduleByCourse(int idCourse) throws Exception {
+        Map<Integer, PreDefinedSchedule> schedulesMap = new HashMap<>();
+
+        String schedulesQuery = "SELECT id, year, no_conflicts FROM schedules WHERE course = ?";
+        String predefinedScheduleQuery = "SELECT idSchedule, uc_id, shift_id, timeslot_id FROM predefined_schedule WHERE idSchedule = ?";
+
+        try (PreparedStatement schedulesStm = DAOConfig.connection.prepareStatement(schedulesQuery)) {
+            schedulesStm.setInt(1, idCourse);
+
+            try (ResultSet schedulesRs = schedulesStm.executeQuery()) {
+                while (schedulesRs.next()) {
+                    int scheduleId = schedulesRs.getInt("id");
+                    int year = schedulesRs.getInt("year");
+                    int noConflicts = schedulesRs.getInt("no_conflicts");
+
+                    Map<Integer, Map<Integer, List<Integer>>> scheduleMap = new HashMap<>();
+
+                    try (PreparedStatement predefinedStm = DAOConfig.connection.prepareStatement(predefinedScheduleQuery)) {
+                        predefinedStm.setInt(1, scheduleId);
+
+                        try (ResultSet predefinedRs = predefinedStm.executeQuery()) {
+                            while (predefinedRs.next()) {
+                                int ucId = predefinedRs.getInt("uc_id");
+                                int shiftId = predefinedRs.getInt("shift_id");
+                                int timeSlotId = predefinedRs.getInt("timeslot_id");
+
+                                scheduleMap
+                                    .computeIfAbsent(ucId, k -> new HashMap<>())
+                                    .computeIfAbsent(shiftId, k -> new ArrayList<>())
+                                    .add(timeSlotId);
+                            }
+                        }
+                    }
+
+                    PreDefinedSchedule preDefinedSchedule = new PreDefinedSchedule(scheduleId, year, noConflicts, scheduleMap);
+                    schedulesMap.put(scheduleId, preDefinedSchedule);
+                }
+            }
+        } catch (SQLException e) {
+            throw new Exception("Erro ao buscar os horários pré-definidos para o curso: " + e.getMessage(), e);
+        }
+        return schedulesMap;
+    }
+
+
+    public void updateStudentSchedule(int studentId, Map<Integer, List<Integer>> newSchedule) throws Exception {
+        try {
+            // Search for the existing shifts of the student before deleting
+            Map<Integer, List<Integer>> existingSchedule = new HashMap<>();
+            try (PreparedStatement fetchStm = DAOConfig.connection.prepareStatement(
+                    "SELECT uc_id, shift_id FROM student_schedule WHERE student_id = ?")) {
+                fetchStm.setInt(1, studentId);
+                try (ResultSet rs = fetchStm.executeQuery()) {
+                    while (rs.next()) {
+                        int ucId = rs.getInt("uc_id");
+                        int shiftId = rs.getInt("shift_id");
+
+                        existingSchedule.computeIfAbsent(ucId, k -> new ArrayList<>()).add(shiftId);
+                    }
+                }
+            }
+
+            // Decrement the enrolledCount for the old shifts
+            for (Map.Entry<Integer, List<Integer>> entry : existingSchedule.entrySet()) {
+                for (int shiftId : entry.getValue()) {
+                    try (PreparedStatement decrementShiftStm = DAOConfig.connection.prepareStatement(
+                            "UPDATE shifts SET enrolledCount = enrolledCount - 1 WHERE id = ?")) {
+                        decrementShiftStm.setInt(1, shiftId);
+                        decrementShiftStm.executeUpdate();
+                    }
+                }
+            }
+
+            // Remove the existing schedule of the student
+            try (PreparedStatement deleteStm = DAOConfig.connection.prepareStatement(
+                    "DELETE FROM student_schedule WHERE student_id = ?")) {
+                deleteStm.setInt(1, studentId);
+                deleteStm.executeUpdate();
+            }
+
+            // Insert the new schedule
+            for (Map.Entry<Integer, List<Integer>> entry : newSchedule.entrySet()) {
+                int ucId = entry.getKey();
+                for (int shiftId : entry.getValue()) {
+                    try (PreparedStatement stm = DAOConfig.connection.prepareStatement(
+                            "INSERT INTO student_schedule (student_id, uc_id, shift_id) VALUES (?, ?, ?)")) {
+                        stm.setInt(1, studentId);
+                        stm.setInt(2, ucId);
+                        stm.setInt(3, shiftId);
+                        stm.executeUpdate();
+                    }
+
+                    // Increment the count of students in the shift
+                    try (PreparedStatement incrementShiftStm = DAOConfig.connection.prepareStatement(
+                            "UPDATE shifts SET enrolledCount = enrolledCount + 1 WHERE id = ?")) {
+                        incrementShiftStm.setInt(1, shiftId);
+                        incrementShiftStm.executeUpdate();
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new Exception("Erro ao atualizar o horário do estudante: " + e.getMessage());
+        }
+    }
+
+    public void updateStudentsSchedules(List<Student> students) throws Exception {
+        for (Student student : students) {
+            Map<Integer, List<Integer>> studentSchedule = student.getSchedule();
+            if (studentSchedule != null && !studentSchedule.isEmpty()) {
+                updateStudentSchedule(student.getId(), studentSchedule);
+            }
+        }
+    }
+ 
 }

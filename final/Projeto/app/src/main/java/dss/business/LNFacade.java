@@ -82,4 +82,8 @@ public class LNFacade {
     public boolean registerSchedule (int idStudent, Map<Integer, List<Integer>> schedule) {
         return gesScheduleFacade.registerSchedule(idStudent, schedule);
     }
+
+    public boolean importSchedulesPreDefined (int idCourse, String path) {
+        return gesScheduleFacade.importSchedulesPreDefined(idCourse, path);
+    }
 }
