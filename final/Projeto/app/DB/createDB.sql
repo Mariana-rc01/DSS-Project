@@ -6,7 +6,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema dss
 -- -----------------------------------------------------
 
-DROP DATABASE `dss`;
+DROP DATABASE `dss` IF EXISTS;
 
 CREATE SCHEMA IF NOT EXISTS `dss` ;
 USE `dss` ;

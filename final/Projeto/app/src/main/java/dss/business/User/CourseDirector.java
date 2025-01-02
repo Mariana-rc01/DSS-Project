@@ -37,6 +37,6 @@ public class CourseDirector {
     }
 
     public boolean verifyPassword(String password) {
-        return this.password == password;
+        return String.valueOf(this.password).equals(password);
     }
 }

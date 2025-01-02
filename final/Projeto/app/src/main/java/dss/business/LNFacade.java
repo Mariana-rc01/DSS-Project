@@ -46,6 +46,10 @@ public class LNFacade {
         return gesUserFacade.getStudent(idStudent);
     }
 
+    public int getUserType(int idUser) {
+        return gesUserFacade.getUserType(idUser);
+    }
+
     // Schedule
     public List<Integer> getStudentsWithScheduleConflicts(int idCourse) {
         return gesScheduleFacade.getStudentsWithScheduleConflicts(idCourse);
