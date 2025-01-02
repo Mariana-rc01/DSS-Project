@@ -29,8 +29,8 @@ public class LNFacade {
         return gesCourseFacade.importUCs(path, idCourse);
     }
 
-    public boolean addStudent(int idStudent, int idCourse){
-        return gesCourseFacade.addStudent(idStudent, idCourse);
+    public boolean addStudent(int idStudent, int idCourse, List<Integer> ucs){
+        return gesCourseFacade.addStudent(idStudent, idCourse, ucs);
     }
 
     // User
@@ -44,6 +44,10 @@ public class LNFacade {
 
     public Student getStudent(int idStudent) throws Exception{
         return gesUserFacade.getStudent(idStudent);
+    }
+
+    public int getCourseId(int idUser){
+        return gesUserFacade.getCourseId(idUser);
     }
 
     public int getUserType(int idUser) {

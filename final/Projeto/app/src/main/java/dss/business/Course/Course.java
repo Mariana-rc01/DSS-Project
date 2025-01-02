@@ -257,8 +257,8 @@ public class Course {
         }
     }
 
-    public Student addStudent(int idStudent, int idCourse) {
-        return new Student(idStudent, Student.generateRandomPassword(), idCourse);
+    public Student addStudent(int idStudent, int idCourse, List<Integer> ucs) {
+        return new Student(idStudent, Student.generateRandomPassword(), idCourse, ucs);
     }
 
     /*

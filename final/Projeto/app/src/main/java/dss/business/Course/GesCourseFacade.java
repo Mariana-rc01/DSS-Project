@@ -79,13 +79,13 @@ public class GesCourseFacade implements IGesCourse {
         }
     }
 
-    public boolean addStudent(int idStudent, int idCourse){
+    public boolean addStudent(int idStudent, int idCourse, List<Integer> ucs){
         try {
             Course course = courses.getCourse(idCourse);
             if (course == null) {
                 return false;
             }
-            return courses.addStudent(course.addStudent(idStudent, idCourse));
+            return courses.addStudent(course.addStudent(idStudent, idCourse, ucs));
         } catch (Exception e) {
             e.printStackTrace();
             return false;

@@ -26,11 +26,13 @@ public class TextUI {
                 case 1:
                     System.out.println("Bem-vindo, Aluno!");
                     studentView.setStudent(lnFacade.getStudent(userId));
+                    studentView.setCourseId(lnFacade.getCourseId(userId));
                     Menu menuStudent = studentView.initMenu();
                     menuStudent.run();
                     break;
                 case 2:
                     System.out.println("Bem-vindo, Diretor de Curso!");
+                    courseDirectorView.setCourseId(lnFacade.getCourseId(userId));
                     Menu menuDirector = courseDirectorView.initMenu();
                     menuDirector.run();
                     break;

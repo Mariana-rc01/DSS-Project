@@ -16,6 +16,7 @@ public class StudentView {
     private final LNFacade lnFacade;
     private Menu menuPrincipal;
     private Student student;
+    private int courseId;
 
     public StudentView(LNFacade facade) {
         this.lnFacade = facade;
@@ -23,6 +24,10 @@ public class StudentView {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
     public Menu initMenu() {
@@ -38,7 +43,11 @@ public class StudentView {
     }
 
     private void consultarHorario() {
-        Map<UC, Map<Shift,List<TimeSlot>>> horario = lnFacade.getStudentSchedule(student.getId(), student.getCourse());
+        Map<UC, Map<Shift,List<TimeSlot>>> horario = lnFacade.getStudentSchedule(student.getId(), courseId);
+        if(horario == null) {
+            System.out.println("Ainda não tem horário definido.");
+            return;
+        }
         for (UC uc : horario.keySet()) {
             System.out.println(uc.getName());
             for (Shift shift : horario.get(uc).keySet()) {

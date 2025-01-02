@@ -56,4 +56,21 @@ public class GesUserFacade implements IGesUser {
     public Student getStudent(int idStudent) throws Exception{
         return students.getStudent(idStudent);
     }
+
+    public int getCourseId(int idUser){
+        try {
+            Student student = students.getStudent(idUser);
+            if (student != null) {
+                return student.getCourse();
+            }
+
+            CourseDirector director = directors.getCourseDirector(idUser);
+            if (director != null) {
+                return director.getCourseId();
+            }
+        } catch (Exception e) {
+            return -1;
+        }
+        return -1;
+    }
 }

@@ -1,4 +1,5 @@
 package dss.business.Course;
+import java.util.List;
 
 public interface IGesCourse {
     
@@ -8,5 +9,5 @@ public interface IGesCourse {
 
     public boolean importUCs(String path, int idCourse);
 
-    public boolean addStudent(int idStudent, int idCourse);
+    public boolean addStudent(int idStudent, int idCourse, List<Integer> ucs);
 }
