@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import dss.business.Course.Course;
+import dss.business.Course.UC;
 import dss.business.Course.Shift;
 import dss.business.Course.Theoretical;
 import dss.business.Course.TheoreticalPractical;
@@ -393,5 +394,32 @@ public class CourseDAO {
             }
         }
     }
- 
+
+    public List<UC> getUCsByCourse(int idCourse){
+        List<UC> ucs = new ArrayList<>();
+        String query = "SELECT * FROM ucs WHERE course = ?";
+
+        try (PreparedStatement stm = DAOConfig.connection.prepareStatement(query)) {
+            stm.setInt(1, idCourse);
+            ResultSet rs = stm.executeQuery();
+            UCDAO ucDAO = new UCDAO();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                ucs.add(new UC(
+                        id,
+                        rs.getString("name"),
+                        rs.getInt("year"),
+                        rs.getInt("semester"),
+                        rs.getString("policyPreference"),
+                        ucDAO.getShiftsByUC(id),
+                        rs.getInt("course")
+                ));
+            }
+
+            return ucs;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Erro ao obter UCs pelo ID do curso: " + e.getMessage());
+        }
+    }
 }

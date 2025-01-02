@@ -17,7 +17,17 @@ public class GesCourseFacade implements IGesCourse {
     }
 
     public boolean registerPolicyOption(int idCourse, int idUC, String policyPreference){
-        return false;
+        try {
+            UC uc = ucs.getUC(idUC);
+            if (uc == null) {
+                return false;
+            }
+            uc.setPolicyPreference(policyPreference);
+            return ucs.updateUC(uc.getId(), uc.getName(), uc.getYear(), uc.getSemester(), uc.getPolicyPreference(), uc.getIdCourse());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean importStudents(String path, int idCourse) throws Exception{
@@ -70,6 +80,15 @@ public class GesCourseFacade implements IGesCourse {
     }
 
     public boolean addStudent(int idStudent, int idCourse){
-        return false;
+        try {
+            Course course = courses.getCourse(idCourse);
+            if (course == null) {
+                return false;
+            }
+            return courses.addStudent(course.addStudent(idStudent, idCourse));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

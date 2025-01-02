@@ -8,6 +8,9 @@ import dss.business.Course.UC;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 import jakarta.activation.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.util.*;
 
 public class Student {
 
@@ -240,4 +243,40 @@ public class Student {
         return years;
     }
 
+    public boolean exportSchedule(Map<UC, Map<Shift, List<TimeSlot>>> schedule, String filename){
+        try {
+            FileWriter fileWriter = new FileWriter(filename);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            for (Map.Entry<UC, Map<Shift, List<TimeSlot>>> ucEntry : schedule.entrySet()) {
+                UC uc = ucEntry.getKey();
+                Map<Shift, List<TimeSlot>> shiftMap = ucEntry.getValue();
+
+                bufferedWriter.write("UC: " + uc.getName());
+                bufferedWriter.newLine();
+
+                for (Map.Entry<Shift, List<TimeSlot>> shiftEntry : shiftMap.entrySet()) {
+                    Shift shift = shiftEntry.getKey();
+                    List<TimeSlot> timeSlots = shiftEntry.getValue();
+
+                    bufferedWriter.write("Shift: " + shift.getId());
+                    bufferedWriter.newLine();
+
+                    for (TimeSlot timeSlot : timeSlots) {
+                        bufferedWriter.write("Time Slot: " + timeSlot.getTimeStart() + " - " + timeSlot.getTimeEnd());
+                        bufferedWriter.newLine();
+                    }
+                }
+
+                bufferedWriter.newLine();
+            }
+
+            bufferedWriter.close();
+            fileWriter.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

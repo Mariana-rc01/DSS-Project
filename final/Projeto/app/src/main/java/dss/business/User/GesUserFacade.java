@@ -22,6 +22,19 @@ public class GesUserFacade implements IGesUser {
     }
 
     public boolean verifyPassword(int idUser, String password){
+        try {
+            Student student = students.getStudent(idUser);
+            if (student != null) {
+                return student.verifyPassword(password);
+            }
+
+            CourseDirector director = directors.getCourseDirector(idUser);
+            if (director != null) {
+                return director.verifyPassword(password);
+            }
+        } catch (Exception e) {
+            return false;
+        }
         return false;
     }
 

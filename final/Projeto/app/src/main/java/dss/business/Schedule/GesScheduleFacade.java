@@ -36,8 +36,21 @@ public class GesScheduleFacade implements ISchedule {
         return studentsWithScheduleConflicts;
     }
 
-    public boolean exportSchedule (int idStudent, String filename) {
-        return false;
+    public boolean exportSchedule(int idStudent, String filename){
+        try {
+            Student student = students.getStudent(idStudent);
+            if (student == null) {
+                return false;
+            }
+
+            Map<UC, Map<Shift, List<TimeSlot>>> schedule = getStudentSchedule(idStudent, student.getCourse());
+
+            return student.exportSchedule(schedule, filename);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public void generateSchedule (int idCourse) {
@@ -152,7 +165,49 @@ public class GesScheduleFacade implements ISchedule {
     }
 
     public Map<UC, Map<Shift,List<TimeSlot>>> getStudentSchedule (int idStudent, int idCourse) {
-        return null;
+        try {
+            Student student = students.getStudent(idStudent);
+            if (student == null) {
+                return null;
+            }
+
+            Course course = courses.getCourse(idCourse);
+            if (course == null) {
+                return null;
+            }
+
+            Map<Integer, List<Integer>> schedule = student.getSchedule();
+
+            Map<UC, Map<Shift,List<TimeSlot>>> studentSchedule = new HashMap<>();
+
+            List<UC> allUCs = courses.getUCsByCourse(idCourse);
+            List<Shift> allShifts = courses.getShiftsByCourse(idCourse).values().stream().toList();
+
+            for (Map.Entry<Integer, List<Integer>> entry : schedule.entrySet()) {
+                    UC uc = allUCs.stream().filter(u -> u.getId() == entry.getKey()).findFirst().orElse(null);
+                    if (uc == null) {
+                        continue;
+                    }
+
+                    Map<Shift, List<TimeSlot>> shifts = new HashMap<>();
+
+                    for (Integer shiftId : entry.getValue()) {
+                        Shift shift = allShifts.stream().filter(s -> s.getId() == shiftId).findFirst().orElse(null);
+                        if (shift == null) {
+                            continue;
+                        }
+
+                        List<TimeSlot> timeSlots = shift.getTimeSlots();
+                        shifts.put(shift, timeSlots);
+                    }
+
+                    studentSchedule.put(uc, shifts);
+            }
+            return studentSchedule;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public boolean registerSchedule (int idStudent, Map<Integer, List<Integer>> schedule) {

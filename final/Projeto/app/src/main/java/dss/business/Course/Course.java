@@ -262,6 +262,10 @@ public class Course {
         }
     }
 
+    public Student addStudent(int idStudent, int idCourse) {
+        return new Student(idStudent, Student.generateRandomPassword(), idCourse);
+    }
+
     /*
     public void addUC(UC uc){
         
